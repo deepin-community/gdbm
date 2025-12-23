@@ -1,8 +1,8 @@
 /* seq.c - This is the sequential visit of the database.  This defines two
-   user-visable routines that are used together. This is the DBM interface. */
+   user-visible routines that are used together. This is the DBM interface. */
 
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 1990-2021 Free Software Foundation, Inc.
+   Copyright (C) 1990-2025 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by

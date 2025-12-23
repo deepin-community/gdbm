@@ -1,7 +1,7 @@
 /* gdbm.h  -  The include file for dbm users.  -*- c -*- */
 
 /*  This file is part of GDBM, the GNU data base manager, by Philip A. Nelson.
-    Copyright (C) 1990-2021 Free Software Foundation, Inc.
+    Copyright (C) 1990-2025 Free Software Foundation, Inc.
 
     GDBM is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@
 
 # include <stdio.h>
 # include <sys/types.h>
+# include <time.h>
 
 /* GDBM C++ support */
 # if defined(__cplusplus) || defined(c_plusplus)
@@ -64,7 +65,7 @@ extern "C" {
 # define GDBM_INSERT	0	/* Never replace old data with new. */
 # define GDBM_REPLACE	1	/* Always replace old data with new. */
 
-/* Parameters to gdbm_setopt, specifing the type of operation to perform. */
+/* Parameters to gdbm_setopt, specifying the type of operation to perform. */
 # define GDBM_SETCACHESIZE    1  /* Set the cache size. */
 # define GDBM_FASTMODE	      2	 /* Toggle fast mode.  OBSOLETE. */
 # define GDBM_SETSYNCMODE     3  /* Turn on or off sync operations. */
@@ -88,9 +89,16 @@ extern "C" {
 # define GDBM_GETMAXMAPSIZE   14 /* Get maximum mapped memory size */
 # define GDBM_GETDBNAME       15 /* Return database file name */
 # define GDBM_GETBLOCKSIZE    16 /* Return block size */
-
+# define GDBM_GETDBFORMAT     17 /* Return the database format */
+# define GDBM_GETDIRDEPTH     18 /* Directory depth: number of initial (most
+				    significant) bits in hash interpreted as
+				    index to the directory. */
+# define GDBM_GETBUCKETSIZE   19 /* Get number of elements per bucket */
+# define GDBM_GETCACHEAUTO    20 /* Get the value of cache auto-adjustment */
+# define GDBM_SETCACHEAUTO    21 /* Set the value of cache auto-adjustment */
+    
 # define GDBM_CACHE_AUTO      0
-  
+
 typedef @GDBM_COUNT_T@ gdbm_count_t;
 
 /* The data and key structure. */
@@ -114,6 +122,41 @@ extern int const gdbm_version_number[3];
 
 /* GDBM external functions. */
 
+enum
+  {
+    GDBM_LOCKWAIT_NONE,
+    GDBM_LOCKWAIT_RETRY,
+    GDBM_LOCKWAIT_SIGNAL,
+  };
+
+struct gdbm_open_spec
+{
+  int fd;              /* Unless -1, this is the handle of an already opened
+			  database file.  gdbm_open_ext will use it instead
+			  of opening the named file with open(2). */
+  int mode;            /* File mode in case it will be created. */
+  int block_size;      /* Block size to use when creating new file.  0 stands
+			  for default. */
+  int lock_wait;       /* Whether and how to wait for database lock to
+			  succeed.  GDBM_LOCKWAIT_NONE means return
+			  immediately, if the database cannot be locked.
+			  Otherwise, block until the file is locked or
+			  timeout expires. */
+  struct timespec lock_timeout;  /* Locking timeout. */
+  struct timespec lock_interval; /* For GDBM_LOCKWAIT_RETRY, interval to
+				    sleep between two successive locking
+				    attempts. */
+
+  void (*fatal_func) (const char *); /* Function to call before returning
+					fatal error. Deprecated. */
+};
+
+#define GDBM_OPEN_SPEC_INITIALIZER \
+  { .fd = -1, .mode = 0600, .lock_wait = GDBM_LOCKWAIT_NONE }
+
+extern void gdbm_open_spec_init (struct gdbm_open_spec *spec);
+extern GDBM_FILE gdbm_open_ext (char const *file_name, int flags,
+				struct gdbm_open_spec const *op);
 extern GDBM_FILE gdbm_fd_open (int fd, const char *file_name, int block_size,
 			       int flags, void (*fatal_func) (const char *));
 extern GDBM_FILE gdbm_open (const char *, int, int, int,
@@ -207,6 +250,10 @@ extern int gdbm_load (GDBM_FILE *, const char *, int replace,
 extern int gdbm_load_from_file (GDBM_FILE *, FILE *, int replace,
 				int meta_flags,
 				unsigned long *line);
+extern int gdbm_load_from_file_ext (GDBM_FILE *pdbf, FILE *fp,
+				    int mode, int replace,
+				    int meta_mask,
+				    unsigned long *line);
 
 extern int gdbm_copy_meta (GDBM_FILE dst, GDBM_FILE src);
 

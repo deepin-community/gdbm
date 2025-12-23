@@ -1,10 +1,116 @@
-GNU dbm NEWS -- history of user-visible changes. 2021-10-19
-Copyright (C) 1990-2021 Free Software Foundation, Inc.
+GNU dbm NEWS -- history of user-visible changes. 2025-07-30
+Copyright (C) 1990-2025 Free Software Foundation, Inc.
 See the end of file for copying conditions.
 
 Please send gdbm bug reports to <bug-gdbm@gnu.org>.
 
-Version 1.22
+Version 1.26, 2025-07-30
+
+* Fixed build on musl libc
+* Fixed build on MacOS
+* Improved testsuite
+
+Version 1.25, 2025-03-22
+
+* New function: gdbm_open_ext
+
+This function provides a general-purpose interface for opening and
+creating GDBM files.  It combines the possibilities of gdbm_open
+and gdbm_fd_open and provides detailed control over database file
+locking.
+
+* New gdbmtool command: collisions
+
+The command prints the collision chains for the current bucket, or
+for the buckets identified by its arguments:
+
+  collisions
+     Display collisions for the current bucket.
+
+  collisions N
+     Display collisions for bucket N.
+
+  collisions N0 N1
+     Display collisions for the range of buckets [N0, N1].
+
+* Pipelines in gdbmtool
+
+The output of a gdbmtool command can be connected to the input of a
+shell command using the traditional pipeline syntax.
+
+* Fix a bug in block coalescing code
+
+* Other bugfixes
+
+
+Version 1.24, 2024-07-02
+
+* New gdbm_load option: --update
+
+The --update (-U) option instructs gdbm_load to update an existing
+database.
+
+* Fix semantics of gdbm_load -r
+
+The --replace (-r) is valid only when used together with --update.
+
+* Use getline in gdbmtool shell.
+
+* New function: gdbm_load_from_file_ext
+
+In contrast to gdbm_load and gdbm_load_from_file, which derive
+the value of the flag parameter for gdbm_open from the value
+of their "replace" argument, this function allows the caller to
+specify it explicitly.  The prototype is:
+
+  int gdbm_load_from_file_ext (GDBM_FILE *pdbf, FILE *fp,
+			       int flags, int replace,
+			       int meta_mask,
+			       unsigned long *line);
+
+* Bugfixes
+
+** Fix binary dump format for key and/or data of zero size.
+   (see https://puszcza.gnu.org.ua/bugs/?565)
+** Fix location tracking and recover command in gdbtool.
+   (see https://puszcza.gnu.org.ua/bugs/?566)
+** Fix possible buffer underflow in gdbmload.
+** Ensure any padding bytes in avail_elem structure are filled with 0.
+   (fixes https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1031276)
+** Improve the documentation.
+
+Version 1.23, 2022-02-04
+
+* Bucket cache switched from balanced tree to hash table
+
+Change suggested by Terence Kelly.
+
+* Speed up flushing the changed buckets on disk
+
+* New option codes for gdbm_setopt
+
+** GDBM_GETDBFORMAT
+
+Return the database format.
+
+** GDBM_GETDIRDEPTH
+
+Return the directory depth, i.e. the number of initial (most significant)
+bits in hash value that are interpreted as index to the directory.
+
+** GDBM_GETBUCKETSIZE
+
+Return maximum number of keys per bucket.
+
+** GDBM_GETCACHEAUTO
+
+Return the status of the automatic cache adjustment.
+
+** GDBM_SETCACHEAUTO
+
+Enable or disable automatic cache adjustment.
+
+Version 1.22, 2021-10-19
 
 * Fix file header validation
 
@@ -639,7 +745,7 @@ Version 0.9
 ----------------------------------------------------------------------
 Copyright information:
 
-Copyright (C) 1990-2021 Free Software Foundation, Inc.
+Copyright (C) 1990-2025 Free Software Foundation, Inc.
 
    Permission is granted to anyone to make or distribute verbatim copies
    of this document as received, in any medium, provided that the
