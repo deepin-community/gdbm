@@ -1,5 +1,5 @@
 /* Convenience header for conditional use of GNU <libintl.h>.
-   Copyright (C) 1995-2021 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU General Public License as published
@@ -12,9 +12,7 @@
    Library General Public License for more details.
 
    You should have received a copy of the GNU General Public
-   License along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
-   USA.  */
+   License along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 #ifndef _LIBGETTEXT_H
 #define _LIBGETTEXT_H 1

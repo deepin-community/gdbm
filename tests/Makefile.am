@@ -1,5 +1,5 @@
 # This file is part of GDBM.                                   -*- autoconf -*-
-# Copyright (C) 2011-2021 Free Software Foundation, Inc.
+# Copyright (C) 2011-2025 Free Software Foundation, Inc.
 #
 # GDBM is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -55,6 +55,7 @@ TESTSUITE_AT = \
  cloexec02.at\
  cloexec03.at\
  closerr.at\
+ coalesce.at\
  conv.at\
  dbmcreate00.at\
  dbmdel00.at\
@@ -65,6 +66,7 @@ TESTSUITE_AT = \
  dbmfetch01.at\
  dbmfetch02.at\
  dbmfetch03.at\
+ dumpload.at\
  create00.at\
  delete00.at\
  delete01.at\
@@ -73,11 +75,16 @@ TESTSUITE_AT = \
  gdbmtool01.at\
  gdbmtool02.at\
  gdbmtool03.at\
+ gdbmtool04.at\
  fetch00.at\
  fetch01.at\
  setopt00.at\
  setopt01.at\
- version.at
+ setopt02.at\
+ lockwait_ret.at\
+ lockwait_sig.at\
+ version.at\
+ wordwrap.at
 
 TESTSUITE = $(srcdir)/testsuite
 M4=m4
@@ -114,6 +121,7 @@ check_PROGRAMS = \
  fdop\
  g_open_ce\
  g_reorg_ce\
+ gtcacheopt\
  gtconv\
  gtdel\
  gtdump\
@@ -123,9 +131,12 @@ check_PROGRAMS = \
  gtrecover\
  gtver\
  num2word\
+ t_dumpload\
+ t_lockwait\
+ t_wordwrap\
  $(DBMPROGS)
 
-AM_CPPFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src $(DBMINCLUDES)
+AM_CPPFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src -I$(top_srcdir)/tools $(DBMINCLUDES)
 
 noinst_HEADERS=progname.h
 
@@ -136,6 +147,6 @@ dtdump_LDADD = ../src/libgdbm.la ../compat/libgdbm_compat.la
 dtfetch_LDADD = ../src/libgdbm.la ../compat/libgdbm_compat.la
 dtdel_LDADD = ../src/libgdbm.la ../compat/libgdbm_compat.la
 d_creat_ce_LDADD = ../src/libgdbm.la ../compat/libgdbm_compat.la
+t_wordwrap_LDADD = ../tools/libgdbmapp.a @LTLIBINTL@
 
-SUBDIRS = gdbmtool
-
+SUBDIRS = dejagnu

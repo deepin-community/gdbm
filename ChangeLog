@@ -1,3 +1,756 @@
+2025-07-30  Sergey Poznyakoff  <gray@gnu.org>
+
+        Version 1.26
+
+
+2025-07-24  Sergey Poznyakoff  <gray@gnu.org>
+
+        Check for strings.h and include it if available.
+
+
+2025-04-11  Sergey Poznyakoff  <gray@gnu.org>
+
+        Minor spelling fixes
+
+
+2025-04-11  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix column calculations in wordwrap
+
+        * tools/wordwrap.c (position): New struct.
+        (position_init,position_incr,position_add)
+        (position_eq): New functions.
+        (wordwrap_file): Replace offset and column with struct position
+        cur. Change types of last_ws and ws_run to struct position. All
+        uses changed.
+        (wordwrap_last_ws): Rewrite.
+        (flush_line,wordwrap_flush): Use column number, instead of
+        offset, to check whether the margin is about to be reached.
+        (flush_line) Recompute current position and whitespace location
+        after a move within the buffer.
+
+2025-04-11  Sergey Poznyakoff  <gray@gnu.org>
+
+        Minor change
+
+        * src/lock.c: Don't set errno to ETIME, preserve the original
+        EINTR instead.
+
+2025-04-11  Sergey Poznyakoff  <gray@gnu.org>
+
+        Adjust timeouts for setitimer interface in lockwait test.
+
+        * tests/t_lockwait.c: Setitimer (at least on some systems)
+        restarts the timer set by alarm(2). To calculate the ETA of
+        SIGALRM, call alarm after gdbm_open_ext returns.
+
+2025-04-10  Sergey Poznyakoff  <gray@gnu.org>
+
+        More fixes to lockwait test
+
+        * tests/t_lockwait.c (sighan): Close fd.
+        (runtest_signal): compensate for alarm(2) second precision
+
+2025-04-10  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix timeout calculation in lockwait signal test.
+
+        * tests/t_lockwait.c (runtest_signal): mark start time right 
+        after setting alarm, not before it.
+
+2025-03-27  Sergey Poznyakoff  <gray@gnu.org>
+
+        Use nanosleep instead of clock_nanosleep
+
+        The latter is not available on macOS
+
+2025-03-24  Sergey Poznyakoff  <gray@gnu.org>
+
+        Add missing include
+
+        * tools/gdbmapp.h: Include sys/types.h
+
+2025-03-22  Sergey Poznyakoff  <gray@gnu.org>
+
+        Version 1.25
+
+
+2025-03-06  Sergey Poznyakoff  <gray@gnu.org>
+
+        New function: gdbm_open_ext
+
+        * configure.ac: Check for timer_settime.
+        * src/Makefile.am (libgdbm_la_LIBADD): Add RTLIB.
+        * src/gdbm.h.in (gdbm_open_spec): New struct.
+        (GDBM_OPEN_SPEC_INITIALIZER): New macro.
+        (GDBM_LOCKWAIT_NONE, GDBM_LOCKWAIT_RETRY)
+        (GDBM_LOCKWAIT_SIGNAL): New constants.
+        (gdbm_open_spec): New type.
+        (gdbm_open_spec_init): New prototype.
+        (gdbm_open_ext): New prototype.
+        * src/gdbmopen.c (gdbm_open_ext): New function.
+        (gdbm_fd_open): Rewrite using gdbm_fd_open.
+        (gdbm_open): Likewise.
+        * src/lock.c (try_lock_flock, try_lock_lockf)
+        (try_lock_fcntl,_gdbm_lock_file): Take second argument
+        specifying whether to operate in blocking or non-blocking mode.
+        (_gdbm_lock_file_wait): New function.
+        * src/proto.h (_gdbm_lock_file): Change prototype.
+        (_gdbm_lock_file_wait): New prototype.
+
+        * tests/.gitignore: Add t_lockwait.
+        * tests/progname.h: Include string.h
+        * tests/t_lockwait.c: New test program.
+        * tests/Makefile.am: Build t_lockwait. Add new tests.
+        * tests/testsuite.at: Include new tests.
+        * tests/lockwait_ret.at: New file.
+        * tests/lockwait_sig.at: New file.
+
+        * NEWS: Document changes.
+        * doc/gdbm.3: Likewise.
+        * doc/gdbm.texi: Likewise.
+        * doc/gdbm_dump.1: Likewise.
+        * doc/gdbm_load.1: Likewise.
+        * doc/gdbmtool.1: Likewise.
+
+2025-03-05  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix minor bug in the testsuite
+
+
+2025-03-03  Sergey Poznyakoff  <gray@gnu.org>
+
+        Update copyright years
+
+
+2025-03-03  Sergey Poznyakoff  <gray@gnu.org>
+
+        Pipelines in gdbmtools; new testcases.
+
+        * tools/gdbmshell.c (opendb): Apply "coalesce" and "centfree" 
+        variables to the newly opened database.
+        (last_pipeline): New variable.
+        (run_command): Take pipeline as third argument. Create pipeline 
+        if it is not NULL.
+        * tools/gdbmtool.h (pager_create): New proto.
+        (run_command): Change signature.
+        * tools/gram.y: Accept pipeline after command.
+        * tools/lex.l: New token T_PIPELINE.
+        * tools/pagerfile.c (pager_create): New function.
+
+        * NEWS: Document changes.
+        * doc/gdbm.texi: Likewise.
+        * doc/gdbmtool.1: Likewise.
+
+        * tests/coalesce.at: New test.
+        * tests/gdbmtool04.at: New test.
+        * tests/Makefile.am: Add new tests.
+        * tests/testsuite.at: Likewise.
+
+2025-02-19  Sergey Poznyakoff  <gray@gnu.org>
+
+        Rename tests/gdbmtool to tests/dejagnu.
+
+        Reportedly, Cygwin is unable to correctly handle the case when a
+        directory and a binary of the same name reside in two different
+        PATH components, and the component where the directory resides
+        is listed first.  This causes hard to diagnose errors when
+        running the testsuite, because tests/gdbmtool
+        (the directory), appears before tools/gdbmtool (the binary).
+
+        The case was reported by Marco Atzeri <marco.atzeri@gmail.com>.
+
+2025-02-06  Sergey Poznyakoff  <gray@gnu.org>
+
+        Update NEWS and THANKS
+
+
+2024-12-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix coalesce loop.
+
+        This fixes bug reported by Janne Huttunen.  Bug was introduced 
+        by commit 3bf70df01fc.
+
+        * src/falloc.c (_gdbm_put_av_elem): Don't increment loop counter 
+        after coalescing adjacent entries.
+
+2024-11-17  Sergey Poznyakoff  <gray@gnu.org>
+
+        C23 compatibility fix
+
+        This fixes https://puszcza.gnu.org.ua/bugs/?642
+
+        * tools/var.c (union value): Rename bool to b.
+
+2024-09-04  Sergey Poznyakoff  <gray@gnu.org>
+
+        Update FSF address
+
+
+2024-08-12  Sergey Poznyakoff  <gray@gnu.org>
+
+        Document the collisions gdbmtool command
+
+
+2024-08-06  Sergey Poznyakoff  <gray@gnu.org>
+
+        Minor fix
+
+        * tests/Makefile.am: Link t_wordwrap against @LTLIBINTL@
+
+2024-07-27  Sergey Poznyakoff  <gray@gnu.org>
+
+        Minor change
+
+        * src/recover.c (_gdbm_finish_transfer): Don't flush cache on
+        the original database file. The database have been recovered
+        successfully so the original file is either replaced or left as
+        a backup. There's no use updating it any more.
+
+2024-07-27  Sergey Poznyakoff  <gray@gnu.org>
+
+        Bugfix
+
+        * tools/gdbmshell.c (print_snapshot): Close the database after
+        use.
+
+2024-07-25  Sergey Poznyakoff  <gray@gnu.org>
+
+        gdbmshell: improve paging output
+
+        * tools/gdbmshell.c: Check for possible output errors when
+        listing collisions.
+        * tools/gdbmtool.h (pager_putc, pager_vprintf)
+        (pager_printf, pager_flush): Change return types.
+        (pager_error): New function.
+        * tools/pagerfile.c: Improve error handling. Provide meaningful 
+        return values.
+
+2024-07-24  Sergey Poznyakoff  <gray@gnu.org>
+
+        Rewrite paging support in gdbmshell
+
+        * tools/pagerfile.c: New file.
+        * tools/Makefile.am: Add new file.
+        * tools/datconv.c: Use PAGERFILE instead of FILE.
+        (datum_format_file): New function.
+        * tools/gdbmapp.h (wordwrap_open): New proto.
+        * tools/gdbmshell.c: Use PAGERFILE instead of FILE.
+        * tools/gdbmtool.h (PAGERFILE): New data type.
+        (pager_open, pager_close, pager_write, pager_writez)
+        (pager_writeln, pager_putc, pager_vprintf, pager_printf)
+        (pager_flush, pager_fileno): New protos. Use PAGERFILE instead
+        of FILE.
+        * tools/wordwrap.c (wordwrap_file): New fields: writer and
+        stream.
+        (full_write): Use writer for actual output.
+        (wordwrap_fdopen): Initialize new fields.
+        (wordwrap_open): New function.
+        * NEWS: Bump version patchlevel.
+        * configure.ac: Likewise.
+
+2024-07-24  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix a fencepost error
+
+
+2024-07-23  Sergey Poznyakoff  <gray@gnu.org>
+
+        Minor optimization to the previous commit.
+
+
+2024-07-23  Sergey Poznyakoff  <gray@gnu.org>
+
+        gdbmtool: Implement "collisions" command.
+
+        * tools/gdbmshell.c: New command: collisions.
+        * tools/gdbmtool.h (vlerror, lerror): Mark loc as const.
+        * tools/lex.l: Likewise.
+        * tools/var.c (variable_get): Last argument can be NULL.  Useful 
+        for checking if a variable is set.
+
+2024-07-23  Sergey Poznyakoff  <gray@gnu.org>
+
+        Bugfixes in num2word tool.
+
+        * tests/num2word.c (copy): Fix formatting of numeric ending in 
+        thousand. Fix boundary checking,
+
+2024-07-02  Sergey Poznyakoff  <gray@gnu.org>
+
+        Version 1.24
+
+
+2024-07-01  Sergey Poznyakoff  <gray@gnu.org>
+
+        New function: gdbm_load_from_file_ext. Use it in gdbm_load tool.
+
+        The function takes gdbm_open flags as one of its arguments.  Its 
+        use in gdbm_load avoids rewriting existing database if -U is 
+        specified without -r.
+
+        * NEWS: Document changes.
+        * doc/gdbm.texi: Likewise.
+        * doc/gdbm_load.1: Likewise.
+        * src/gdbmdump.c (gdbm_dump_to_file): Fix return value and error 
+        setting in case of invalid arguments.
+        * src/gdbm.h.in (gdbm_load_from_file_ext): New prototype.
+        * src/gdbmload.c (gdbm_load_from_file_ext): New function.
+        (gdbm_load_from_file): Call gdbm_load_from_file_ext.
+        * tools/gdbm_load.c: Use gdbm_load_from_file_ext.
+
+2024-06-17  Sergey Poznyakoff  <gray@gnu.org>
+
+        Require autoconf 2.71
+
+
+2024-06-17  Sergey Poznyakoff  <gray@gnu.org>
+
+        Update NEWS. Update copyright years.
+
+
+2024-06-04  Sergey Poznyakoff  <gray@gnu.org>
+
+        Ensure any padding bytes in avail_elem are filled with 0.
+
+        * src/gdbmdefs.h (avail_elem_init): New function.
+        * src/bucket.c: Use avail_elem_init to initialize local
+        variables of avail_elem type.
+        * src/falloc.c: Likewise.
+
+2024-06-04  Sergey Poznyakoff  <gray@gnu.org>
+
+        Don't require database name to be specified with -U
+
+        Rationale: the name may be supplied in the dump file itself (in 
+        ascii format).  Besides, the check was incorrect anyway.
+
+        This fixes 0591202918.
+
+        * tools/gdbm_load.c (main): Remove buggy check.
+        * NEWS: Reflect the change.
+        * doc/gdbm.texi: Likewise.
+
+2024-03-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Version 1.23.90
+
+
+2024-03-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Bugfix
+
+        * src/gdbmload.c (get_dump_line): Fix possible buffer underflow. 
+        Return error code. Return number of bytes read in the memory
+        location passed by the second argument. All uses changed
+
+2023-03-03  Sergey Poznyakoff  <gray@gnu.org>
+
+        Minor fix in the compatibility library.
+
+        * compat/dbmopen.c (ndbm_open_dir_file0): Don't try to unlink 
+        the 1.8-compatible dir file or create a missing one if the
+        database is being opened read-only.
+
+2023-01-22  Sergey Poznyakoff  <gray@gnu.org>
+
+        Minor fix in gdbm_dump utility.
+
+
+2023-01-22  Sergey Poznyakoff  <gray@gnu.org>
+
+        Update copyright years
+
+
+2022-07-04  Sergey Poznyakoff  <gray@gnu.org>
+
+        Bugfix
+
+        * tools/gdbm_load.c (main): Restore accidentally removed
+        parameter.
+        * tools/gdbmapp.h (GDBM_PRINTFLIKE): New macro
+        (gdbm_perror, sys_perror, error): Mark as printf-like.
+
+2022-07-03  Sergey Poznyakoff  <gray@gnu.org>
+
+        Test database file dumping and loading
+
+
+2022-07-02  Sergey Poznyakoff  <gray@gnu.org>
+
+        Improve handling of -u in gdbm_load
+
+        * tools/gdbm_load.c (main): Imply the owner login group if owner
+        name is followed by a :, and the current login group otherwise.
+        * doc/gdbm.texi: Document changes.
+
+2022-07-01  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix semantics of gdbm_load -r
+
+        Fixes https://puszcza.gnu.org.ua/bugs/index.php?573
+
+        * tools/gdbm_load.c: New option: --update (-U) The --replace
+        (-r) option is valid only if used together with
+        --update.
+        * NEWS: Document changes.
+        * doc/gdbm.texi: Document changes.
+
+2022-06-27  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix bug #569
+
+        * tools/gdbmshell.c (input_history_begin): return GDBMSHELL_ERR 
+        if history is not available.
+
+2022-06-20  Sergey Poznyakoff  <gray@gnu.org>
+
+        gdbm_dump: fix command line error detection
+
+        This fixes https://puszcza.gnu.org.ua/bugs/?567
+
+2022-06-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix https://puszcza.gnu.org.ua/bugs/index.php?563
+
+
+2022-02-07  Sergey Poznyakoff  <ttn@gnuvola.org>
+
+        Sync list of GDBM errors that need syserr
+
+        * doc/gdbm.texi (Errors): Update @itemize list.
+
+2022-06-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix location tracking in gdbmtool.  Fix the recover command.
+
+        In particular, this addresses
+        https://puszcza.gnu.org.ua/bugs/?566
+
+        * configure.ac: Fix diagnostic message
+        * tools/gdbmshell.c: Use lerror when needed.
+        (recover_handler): Accept varargs
+        (command_tab): Use argdoc to provide help for varargs
+        (help_handler): Handle argdoc
+        * tools/gdbmtool.h (PARAM_LOCPTR): New macro.
+        * tools/gram.y: Accept a single unadorned key=value pair as
+        argument. Fix locus for key=value pair in a list.
+        * tools/lex.l (YY_USER_ACTION): Use setbeg() to decide whether
+        yyloc.beg must be updated.
+        (setbeg): New function.
+
+2022-06-09  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix binary dump format for key and/or data of zero size.
+
+        Fixes https://puszcza.gnu.org.ua/bugs/?565
+
+        * src/gdbmexp.c (gdbm_export_to_file): Check for positive size
+        before attempting to write.
+        * src/gdbmimp.c (gdbm_import_from_file): Check for positive size
+        before attempting to read.
+
+2022-02-23  Sergey Poznyakoff  <gray@gnu.org>
+
+        Bugfix
+
+        * tools/parseopt.c (parseopt_next): Don't call parseopt_free. 
+        This triggered coredumps if, e.g. parseopt_print_help() got
+        called after parsing the arguments.  The bug was introduced by
+        203601fb06 in an attempt to pacify valgrind an similar tools.
+
+2022-02-21  Sergey Poznyakoff  <gray@gnu.org>
+
+        Make sure attempts to lock the file never block
+
+        * src/gdbmdefs.h: Minor change.
+        * src/lock.c: Clean up the code. Use F_TLOCK for lockf(), to
+        avoid blocking.
+
+2022-02-20  Sergey Poznyakoff  <gray@gnu.org>
+
+        Use getline in gdbm shell
+
+        * configure.ac: Check if getline is available.
+        * tools/gdbmshell.c (argsprep): Use getline.
+        [!HAVE_GETLINE] (getline): Simple replacement.
+
+2022-02-17  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix octal output in gdbm shell
+
+        * tools/datconv.c (f_string): Fix printing bytes in octal.
+
+2022-02-04  Sergey Poznyakoff  <gray@gnu.org>
+
+        Version 1.23
+
+
+2022-01-25  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix possible heap buffer overflow
+
+        * src/bucket.c (_gdbm_split_bucket): When splitting the bucket,
+        check if hash values are within allowed range.
+
+2022-01-08  Sergey Poznyakoff  <gray@gnu.org>
+
+        One more fix in wordwrap
+
+
+2022-01-08  Sergey Poznyakoff  <gray@gnu.org>
+
+        Bugfixes in parseopt and wordwrap
+
+        * tools/parseopt.c (print_option): Add newlines around group
+        header text. Insert a comma between the short and corresponding
+        long option.
+        (parseopt_print_help): Don't use parseopt_program_args if it's
+        NULL or empty.
+        * tools/wordwrap.c (wordwrap_set_left_margin): Always force
+        reindent of the following line.
+        (flush_line): Fix the "full write" condition.
+
+2022-01-08  Sergey Poznyakoff  <gray@gnu.org>
+
+        Bugfixes
+
+        * src/bucket.c (_gdbm_cache_init): Accept sizes greater than the 
+        directory size.
+        * src/gdbmsetopt.c (setopt_gdbm_getdbformat): Return 0 on
+        success.
+
+2022-01-07  Sergey Poznyakoff  <gray@gnu.org>
+
+        Minor fix
+
+        * src/bucket.c (lru_unlink_elem): Take into account the
+        possibility that dbf->cache_mru can be NULL.
+
+2022-01-06  Sergey Poznyakoff  <gray@gnu.org>
+
+        Speed up flushing the bucket cache on disk
+
+        The implementation of _gdbm_cache_flush becomes prohibitively 
+        inefficient during extensive updates of large databases.  The 
+        bug was reported at https://github.com/Perl/perl5/issues/19306.
+
+        To fix it, make sure that all changed cache entries are placed
+        at the head of the cache_mru list, forming a contiguous
+        sequence. This way a potentially long iteration over all cache
+        entries can be cut off at the first entry with ca_changed ==
+        FALSE.
+
+        This commit also gets rid of several superfluous fields in 
+        struct gdbm_file_info:
+
+        - cache_entry
+
+            Not needed, because the most recently used cache entry
+           (cache_mru) is always the current one.
+
+        - bucket_changed
+
+            dbf->cache_mru->ca_changed reflects the status of the
+        current
+           bucket.
+
+        - second_changed
+
+            Not needed because _gdbm_cache_flush, which flushes all
+        changed
+           buckets, is now invoked unconditionally by _gdbm_end_update
+        (and
+           also whenever dbf->cache_mru changes).
+
+        * src/gdbmdefs.h (struct gdbm_file_info): Remove cache_entry. 
+        The current cache entry is cache_mru. Remove bucket_changed, and
+        second_changed. All uses changed.
+        * src/proto.h (_gdbm_current_bucket_changed): New inline
+        function.
+        * src/bucket.c (_gdbm_cache_flush): Assume all changed elements
+        form a contiguous sequence beginning with dbf->cache_mru.
+        (set_cache_entry): Remove.  All callers changed.
+        (lru_link_elem,lru_unlink_elem): Update dbf->bucket as
+        necessary.
+        (cache_lookup): If the obtained bucket is not changed and is
+        going to become current, flush all changed cache elements.
+
+        * src/update.c (_gdbm_end_update): Call _gdbm_cache_flush
+        unconditionally.
+        * src/findkey.c: Use dbf->cache_mru instead of the removed
+        dbf->cache_entry.
+        * src/gdbmseq.c: Likewise.
+        * tools/gdbmshell.c (_gdbm_print_bucket_cache): Likewise.
+
+        * src/falloc.c: Use _gdbm_current_bucket_changed to mark the
+        current bucket as changed.
+        * src/gdbmstore.c: Likewise.
+        * src/gdbmdelete.c: Likewise.  Use _gdbm_current_bucket_changed.
+
+        * tests/gtcacheopt.c: Fix typo.
+        * tests/gtload.c: New option: -cachesize
+
+2022-01-02  Sergey Poznyakoff  <gray@gnu.org>
+
+        Update copyright years
+
+
+2021-11-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Rearrange the directory structure
+
+        Sources for the libgdbm library reside in src/. Sources for
+        building accompanying tools are moved to the tools/ 
+        subdirectory.
+
+2021-11-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Update POTFILES.in
+
+
+2021-11-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix typos
+
+
+2021-11-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix shell command in gdbmtool
+
+        Trailing whitespace was erroneously recognized as argument.
+
+        * src/lex.l (string_end): Optionally return NULL if the
+        collected string is of zero length. When leaving the SHELL
+        condition, don't return T_WORD for trailing whitespace.
+        * src/gdbmshell.c (shell_handler): Perror after failed execv.
+
+2021-11-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix gdbmtool import command
+
+        * src/gdbmshell.c (import_handler): Fix option addressing (see 
+        https://puszcza.gnu.org.ua/bugs/?535). Fix freeing of the
+        uninitialized variable.
+
+2021-11-17  Sergey Poznyakoff  <gray@gnu.org>
+
+        Word wrapping output functions for gdbm apps
+
+        * src/Makefile.am (libgdbmapp_a_SOURCES): Add wordwrap.c
+        * src/wordwrap.c: New file.
+
+        * tests/Makefile.am: Add t_wordwrap and wordspit.at
+        * tests/testsuite.at: Add new test.
+        * tests/t_wordwrap.c: New file.
+
+        * src/gdbmshell.c (help_handler): Use wordwrap functions.
+        * src/parseopt.c: Rewrite help output using wordwrap. Add
+        support for the ARGP_HELP_FMT environment variable. Make sure no
+        empty strings are ever passed to gettext.
+
+2021-11-16  Sergey Poznyakoff  <gray@gnu.org>
+
+        Minor fix
+
+
+2021-11-16  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix memory leaks in gdbmshell
+
+        * configure.ac: Don't use $YACC and $LEX (undefined since
+        f4c143fbdf).
+        * src/gdbmshell.c (run_command): Free arglist if not saved to
+        last_args.
+        * src/gdbmtool.c (gdbmtool_init): Correctly report unrecognized
+        long options.
+        * src/gdbmtool.h (YY_LOCATION_PRINT): Define to locus_print.
+        (locus_print): New proto.
+        * src/gram.y: Define destructors for various symbols.
+        * src/lex.l: Save source file names in a linked list.  Don't
+        free source name in input_context_pop, because yypush might
+        refer to it via yyloc stack even after readinf eof (e.g. when
+        printing location). The collected list is freed at program exit.
+        (locus_print): New function.
+        * src/parseopt.c (parseopt_free): New function.
+        (parseopt_first): Call parseopt_free.
+        (parseopt_next): Call parseopt_free, depending on the result.
+        * src/var.c (variable) <freehook>: New member.
+        (errormask_freehook): New function.  Set it as freehook for
+        errorexit and errormask.
+        (variables_free): Call freehook, if defined.
+
+2021-11-16  Sergey Poznyakoff  <gray@gnu.org>
+
+        gdbmtool: bugfixes
+
+
+2021-11-15  Sergey Poznyakoff  <gray@gnu.org>
+
+        gdbmshell: fix exit on error and improve directory/bucket
+        inspection.
+
+        Output from the "dir" command includes, for each directory
+        entry, the corresponding hash prefix.
+
+        The "bucket" command, when used without arguments, assumes
+        current bucket. Its output includes: bucket local depth, number
+        of directory entries pointing to that bucket (references), and,
+        if the latter is greater than one, indexes to the first and last
+        directory entries where it is referenced.
+
+        New command "sibling" inspects the sibling bucket of the current
+        one, i.e. the bucket corresponding to the hash prefix with the
+        last bit inverted.
+
+2021-11-14  Sergey Poznyakoff  <gray@gnu.org>
+
+        Version 1.22.90
+
+
+2021-11-07  Sergey Poznyakoff  <gray@gnu.org>
+
+        Switch to hash table cache implementation
+
+        * src/cachetree.c: Remove.
+        * src/Makefile.am: Remove cachetree.c
+        * doc/gdbm.texi: Document the changes.
+        * src/bucket.c (cache_tab_lookup_slot)
+        (cache_tab_resize): New function.
+        (cache_elem_new): Initialize ca_coll.
+        (cache_elem_free, cache_lookup)
+        (_gdbm_cache_init,_gdbm_cache_free): Rewrite with hash-based
+        cache lookup.
+        (_gdbm_fetch_data): Remove unused function.
+        * src/gdbm.h.in (GDBM_GETDBFORMAT, GDBM_GETDIRDEPTH)
+        (GDBM_GETBUCKETSIZE, GDBM_GETCACHEAUTO, GDBM_SETCACHEAUTO): New
+        option codes.
+        * src/gdbmdefs.h (cache_node): Remove.
+        (cache_elem): Remove ca_node.  Add ca_coll (collision resolution
+        pointer).
+        (gdbm_file_info): New members: cache_auto, cache_bits, cache.
+        * src/gdbmopen.c (gdbm_fd_open): Change cache initialization.
+        * src/gdbmsetopt.c (GDBM_GETDBFORMAT,GDBM_GETDIRDEPTH)
+        (GDBM_GETBUCKETSIZE,GDBM_GETCACHEAUTO)
+        (GDBM_SETCACHEAUTO): Implement new options.
+        (setopt_gdbm_getflags): Reflect the state of GDBM_CLOEXEC and
+        GDBM_NUMSYNC.
+        * src/proto.h (_gdbm_fetch_data,_gdbm_cache_tree_alloc)
+        (_gdbm_cache_tree_destroy,_gdbm_cache_tree_delete)
+        (_gdbm_cache_tree_lookup): Remove protos.
+        * src/recover.c (_gdbm_finish_transfer): Restore original cache
+        settings.
+        * tests/Makefile.am: Add new test.
+        * tests/testsuite.at: Likewise.
+        * tests/gtcacheopt.c: New file.
+        * tests/setopt02.at: New test case.
+
+2021-10-19  Sergey Poznyakoff  <gray@gnu.org>
+
+        Include timestamp in the NEWS entry
+
+
 2021-10-19  Sergey Poznyakoff  <gray@gnu.org>
 
         Version 1.22

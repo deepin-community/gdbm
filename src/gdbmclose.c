@@ -1,7 +1,7 @@
 /* gdbmclose.c - Close a previously opened dbm file. */
 
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 1990-2021 Free Software Foundation, Inc.
+   Copyright (C) 1990-2025 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ gdbm_close (GDBM_FILE dbf)
 
       _gdbmsync_done (dbf);
       
-      /* Close the file and free all malloced memory. */
+      /* Close the file and free all malloc'ed memory. */
 #if HAVE_MMAP
       _gdbm_mapped_unmap (dbf);
 #endif

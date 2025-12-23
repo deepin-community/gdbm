@@ -1,7 +1,7 @@
-/* systems.h - Most of the system dependant code and defines are here. */
+/* systems.h - Most of the system dependent code and defines are here. */
 
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 1990-2021 Free Software Foundation, Inc.
+   Copyright (C) 1990-2025 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,7 +27,8 @@
 #include <stdlib.h>
 #if HAVE_STRING_H
 # include <string.h>
-#else
+#endif
+#if HAVE_STRINGS_H
 # include <strings.h>
 #endif
 #include <unistd.h>

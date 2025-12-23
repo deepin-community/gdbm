@@ -1,5 +1,5 @@
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 2011-2021 Free Software Foundation, Inc.
+   Copyright (C) 2011-2025 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ _gdbm_full_read (GDBM_FILE dbf, void *buffer, size_t size)
   return 0;
 }
 
-/* Write exactly SIZE bytes of data from BUFFER tp DBF.  Return 0 on
+/* Write exactly SIZE bytes of data from BUFFER to DBF.  Return 0 on
    success, and -1 (setting gdbm_errno to GDBM_FILE_READ_ERROR) on error. */
 int
 _gdbm_full_write (GDBM_FILE dbf, void *buffer, size_t size)

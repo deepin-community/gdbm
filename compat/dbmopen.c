@@ -2,7 +2,7 @@
    NDBM interface for dbm use. */
 
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 1990-2021 Free Software Foundation, Inc.
+   Copyright (C) 1990-2025 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -81,12 +81,21 @@ ndbm_open_dir_file0 (const char *file_name, int pagfd, int mode)
 	{
 	  if (st.st_dev == pagst.st_dev && st.st_ino == pagst.st_ino)
 	    {
-	      if (unlink (file_name))
+	      if (flags == O_RDONLY)
 		{
-		  if ((mode & GDBM_OPENMASK) == GDBM_READER)
-		    /* Ok, try to cope with it. */
-		    return pagfd;
-		  else if (errno != ENOENT)
+		  /*
+		   * Don't touch the link if the database is opened read-only.
+		   * Return a meaningful file descriptor for the sake
+		   * of those programs that compare it with pagfd trying
+		   * to detect old GDBM versions (as Sendmail does).
+		   */
+		  if ((fd = open ("/dev/null", flags)) == -1)
+		    gdbm_set_errno (NULL, GDBM_FILE_OPEN_ERROR, TRUE); 
+		  return fd;
+		}
+	      else if (unlink (file_name))
+		{
+		  if (errno != ENOENT)
 		    {
 		      gdbm_set_errno (NULL, GDBM_FILE_OPEN_ERROR, TRUE); 
 		      return -1;
@@ -138,6 +147,13 @@ ndbm_open_dir_file0 (const char *file_name, int pagfd, int mode)
 	  return -1;
 	}
     }
+  else if (flags == O_RDONLY)
+    {
+      /* See the comment above. */
+      if ((fd = open ("/dev/null", flags)) == -1)
+	gdbm_set_errno (NULL, GDBM_FILE_OPEN_ERROR, TRUE); 
+      return fd;
+    }
   
   /* File does not exist.  Create it. */
   fd = open (file_name, flags | O_CREAT, pagst.st_mode & 0777);
@@ -178,7 +194,7 @@ ndbm_open_dir_file (const char *base, int pagfd, int mode)
   
 /* Initialize ndbm system.  FILE is a pointer to the file name.  In
    standard dbm, the database is found in files called FILE.pag and
-   FILE.dir.  To make gdbm compatable with dbm using the dbminit call,
+   FILE.dir.  To make gdbm compatible with dbm using the dbminit call,
    the same file names are used.  Specifically, dbminit will use the file
    name FILE.pag in its call to gdbm open.  If the file (FILE.pag) has a
    size of zero bytes, a file initialization procedure is performed,
@@ -194,7 +210,7 @@ ndbm_open_dir_file (const char *base, int pagfd, int mode)
    FLAGS and MODE are the same as for the open(2) call.  This call will
    look at the FLAGS and decide what call to make to gdbm_open.  For
    FLAGS == O_RDONLY, it will be a GDBM_READER, if FLAGS == O_RDWR|O_CREAT,
-   it will be a GDBM_WRCREAT (creater and writer) and if the FLAGS == O_RDWR,
+   it will be a GDBM_WRCREAT (creator and writer) and if the FLAGS == O_RDWR,
    it will be a GDBM_WRITER and if FLAGS contain O_TRUNC then it will be
    a GDBM_NEWDB.  The O_CLOEXEC bit raises GDBM_CLOEXEC flag.
    All other values of FLAGS are ignored. */
