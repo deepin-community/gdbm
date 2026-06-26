@@ -1,5 +1,5 @@
 # This file is part of GDBM.                                   -*- Makefile -*-
-# Copyright (C) 2007-2021 Free Software Foundation, Inc.
+# Copyright (C) 2007-2022 Free Software Foundation, Inc.
 #
 # GDBM is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ EXTRA_DIST = build-aux/config.rpath NOTE-WARNING
 if COMPAT_OPT
   MAYBE_COMPAT = compat
 endif
-SUBDIRS = po src doc $(MAYBE_COMPAT) tests
+SUBDIRS = po src tools doc $(MAYBE_COMPAT) tests
 
 AM_DISTCHECK_CONFIGURE_FLAGS = --enable-libgdbm-compat
 

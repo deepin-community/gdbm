@@ -1,6 +1,6 @@
 %{
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 1990-2021 Free Software Foundation, Inc.
+   Copyright (C) 1990-2022 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -64,8 +64,39 @@ advance_line (void)
 void string_begin (void);
 void string_add (const char *s, int l);
 void string_addc (int c);
-char *string_end (void);
+char *string_end (int empty_null);
 int unescape (int c);
+
+struct file_name
+{
+  struct file_name *next;
+  char str[1];
+};
+
+static struct file_name *file_head;
+
+static void
+file_names_free (void)
+{
+  while (file_head)
+    {
+      struct file_name *next = file_head->next;
+      free (file_head);
+      file_head = next;
+    }
+}
+ 
+char *
+file_name_alloc (char const *s)
+{
+  struct file_name *f = emalloc (sizeof (*f) + strlen (s));
+  strcpy (f->str, s);
+  f->next = file_head;
+  if (!file_head)
+    atexit (file_names_free);
+  file_head = f;
+  return f->str;
+}
 
 int
 interactive (void)
@@ -123,7 +154,7 @@ input_context_push (instream_t input)
 
   cp = ecalloc (1, sizeof (*cp));
   cp->locus = yylloc;
-  cp->point.file = estrdup (instream_name (input));
+  cp->point.file = file_name_alloc (instream_name (input));
   cp->point.line = 1;
   cp->point.col = 0;
   
@@ -149,8 +180,6 @@ input_context_pop (void)
   if (!context_tos)
     return 1;
   instream_close (context_tos->input);
-  free (context_tos->point.file);
-  memset (&yylloc, 0, sizeof (yylloc));
   cp = context_tos->parent;
   free (context_tos);
   context_tos = cp;
@@ -312,7 +341,7 @@ pad           { return T_PAD; }
 <STR,MLSTR>{
 [^\\\"\n]*\"       { if (yyleng > 1)
 		       string_add (yytext, yyleng - 1);
-		     yylval.string = string_end ();
+		     yylval.string = string_end (FALSE);
 		     BEGIN (CMD);
 		     return T_WORD; }
 [^\\\"\n]*\\\n     { advance_line ();
@@ -347,8 +376,8 @@ pad           { return T_PAD; }
     BEGIN (INITIAL);
     advance_line ();
     yyless (0);
-    yylval.string = string_end ();
-    return T_WORD;    
+    if ((yylval.string = string_end (TRUE)) != NULL)
+      return T_WORD;    
  }
 .   string_addc (yytext[0]);
 }
@@ -446,28 +475,38 @@ string_addc (int c)
   strseg_attach (seg);
 }
 
+/*
+ * Compose the collected string segments into a nul-terminated string.
+ * Return the allocated string.
+ * If EMPTY_NULL is TRUE and the resulting string length is 0, return
+ * NULL instead.
+ */
 char *
-string_end (void)
+string_end (int empty_null)
 {
-  int len = 1;
+  int len = 0;
   struct strseg *seg;
   char *ret, *p;
   
   for (seg = strseg_head; seg; seg = seg->next)
     len += seg->len;
 
-  ret = emalloc (len);
-  p = ret;
-  for (seg = strseg_head; seg; )
+  if (len == 0 && empty_null)
+    ret = NULL;
+  else
     {
-      struct strseg *next = seg->next;
-      memcpy (p, seg->ptr, seg->len);
-      p += seg->len;
-      free (seg);
-      seg = next;
+      ret = emalloc (len + 1);
+      p = ret;
+      for (seg = strseg_head; seg; )
+	{
+	  struct strseg *next = seg->next;
+	  memcpy (p, seg->ptr, seg->len);
+	  p += seg->len;
+	  free (seg);
+	  seg = next;
+	}
+      *p = 0;
     }
-  *p = 0;
-
   strseg_head = strseg_tail = NULL;
 
   return ret;
@@ -498,6 +537,39 @@ escape (int c)
 	return p[-1];
     }
   return 0;
+}
+
+void
+locus_print (FILE *fp, struct locus const *loc)
+{							  
+  if (loc->beg.file)
+    {
+      if (loc->beg.col == 0)
+	fprintf (fp, "%s:%u",
+		 loc->beg.file,
+		 loc->beg.line);
+      else if (strcmp (loc->beg.file, loc->end.file))
+	fprintf (fp, "%s:%u.%u-%s:%u.%u",
+		 loc->beg.file,
+		 loc->beg.line, loc->beg.col,
+		 loc->end.file,
+		 loc->end.line, loc->end.col);
+      else if (loc->beg.line != loc->end.line)
+	fprintf (fp, "%s:%u.%u-%u.%u",
+		 loc->beg.file,
+		 loc->beg.line, loc->beg.col,
+		 loc->end.line, loc->end.col);
+      else if (loc->beg.col != loc->end.col)
+	fprintf (fp, "%s:%u.%u-%u",
+		 loc->beg.file,
+		 loc->beg.line, loc->beg.col,
+		 loc->end.col);
+      else
+	fprintf (fp, "%s:%u.%u",
+		 loc->beg.file,
+		 loc->beg.line,
+		 loc->beg.col);
+    }
 }
 
 void
@@ -679,4 +751,4 @@ make_prompt (void)
   
   return ret;
 }
-
+  

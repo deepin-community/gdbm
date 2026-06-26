@@ -1,7 +1,7 @@
 /* gdbm.h  -  The include file for dbm users.  -*- c -*- */
 
 /*  This file is part of GDBM, the GNU data base manager, by Philip A. Nelson.
-    Copyright (C) 1990-2021 Free Software Foundation, Inc.
+    Copyright (C) 1990-2022 Free Software Foundation, Inc.
 
     GDBM is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ extern "C" {
 # define GDBM_INSERT	0	/* Never replace old data with new. */
 # define GDBM_REPLACE	1	/* Always replace old data with new. */
 
-/* Parameters to gdbm_setopt, specifing the type of operation to perform. */
+/* Parameters to gdbm_setopt, specifying the type of operation to perform. */
 # define GDBM_SETCACHESIZE    1  /* Set the cache size. */
 # define GDBM_FASTMODE	      2	 /* Toggle fast mode.  OBSOLETE. */
 # define GDBM_SETSYNCMODE     3  /* Turn on or off sync operations. */
@@ -88,9 +88,16 @@ extern "C" {
 # define GDBM_GETMAXMAPSIZE   14 /* Get maximum mapped memory size */
 # define GDBM_GETDBNAME       15 /* Return database file name */
 # define GDBM_GETBLOCKSIZE    16 /* Return block size */
-
+# define GDBM_GETDBFORMAT     17 /* Return the database format */
+# define GDBM_GETDIRDEPTH     18 /* Directory depth: number of initial (most
+				    significant) bits in hash interpreted as
+				    index to the directory. */
+# define GDBM_GETBUCKETSIZE   19 /* Get number of elements per bucket */
+# define GDBM_GETCACHEAUTO    20 /* Get the value of cache auto-adjustment */
+# define GDBM_SETCACHEAUTO    21 /* Set the value of cache auto-adjustment */
+    
 # define GDBM_CACHE_AUTO      0
-  
+
 typedef @GDBM_COUNT_T@ gdbm_count_t;
 
 /* The data and key structure. */

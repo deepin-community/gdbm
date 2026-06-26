@@ -1,7 +1,7 @@
 /* gdbmsetopt.c - set options pertaining to a GDBM descriptor. */
 
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 1993-2021 Free Software Foundation, Inc.
+   Copyright (C) 1993-2022 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -71,6 +71,32 @@ setopt_gdbm_getcachesize (GDBM_FILE dbf, void *optval, int optlen)
       return -1;
     }
   *(size_t*) optval = dbf->cache_size;
+  return 0;
+}
+
+static int
+setopt_gdbm_setcacheauto (GDBM_FILE dbf, void *optval, int optlen)
+{
+  int n;
+
+  if ((n = getbool (optval, optlen)) == -1)
+    {     
+      GDBM_SET_ERRNO (dbf, GDBM_OPT_BADVAL, FALSE);
+      return -1;
+    }
+  dbf->cache_auto = n;
+  return 0;
+}
+
+static int
+setopt_gdbm_getcacheauto (GDBM_FILE dbf, void *optval, int optlen)
+{
+  if (!optval || optlen != sizeof (int))
+    {
+      GDBM_SET_ERRNO (dbf, GDBM_OPT_BADVAL, FALSE);
+      return -1;
+    }
+  *(int*) optval = !!dbf->cache_auto;
   return 0;
 }
 
@@ -254,14 +280,24 @@ setopt_gdbm_getflags (GDBM_FILE dbf, void *optval, int optlen)
   else
     {
       int flags = dbf->read_write;
+
       if (!dbf->fast_write)
 	flags |= GDBM_SYNC;
+      
       if (!dbf->file_locking)
 	flags |= GDBM_NOLOCK;
+
       if (!dbf->memory_mapping)
 	flags |= GDBM_NOMMAP;
       else if (dbf->mmap_preread)
 	flags |= GDBM_PREREAD;
+
+      if (dbf->cloexec)
+	flags |= GDBM_CLOEXEC;
+      
+      if (dbf->header->header_magic == GDBM_NUMSYNC_MAGIC)
+	flags |= GDBM_NUMSYNC;
+      
       *(int*) optval = flags;
     }
   return 0;
@@ -300,6 +336,54 @@ setopt_gdbm_getblocksize (GDBM_FILE dbf, void *optval, int optlen)
   GDBM_SET_ERRNO (dbf, GDBM_OPT_BADVAL, FALSE);
   return -1;
 }
+
+static int
+setopt_gdbm_getdbformat (GDBM_FILE dbf, void *optval, int optlen)
+{
+  if (optval && optlen == sizeof (int))
+    {
+      switch (dbf->header->header_magic)
+	{
+	case GDBM_OMAGIC:
+	case GDBM_MAGIC:
+	  *(int*)optval = 0;
+	  break;
+      
+	case GDBM_NUMSYNC_MAGIC:
+	  *(int*)optval = GDBM_NUMSYNC;
+	}
+      return 0;
+    }
+  
+  GDBM_SET_ERRNO (dbf, GDBM_OPT_BADVAL, FALSE);
+  return -1;
+}
+
+static int
+setopt_gdbm_getdirdepth (GDBM_FILE dbf, void *optval, int optlen)
+{
+  if (optval && optlen == sizeof (int))
+    {
+      *(int*) optval = dbf->header->dir_bits;
+      return 0;
+    }
+  
+  GDBM_SET_ERRNO (dbf, GDBM_OPT_BADVAL, FALSE);
+  return -1;
+}
+
+static int
+setopt_gdbm_getbucketsize (GDBM_FILE dbf, void *optval, int optlen)
+{
+  if (optval && optlen == sizeof (int))
+    {
+      *(int*) optval = dbf->header->bucket_elems;
+      return 0;
+    }
+  
+  GDBM_SET_ERRNO (dbf, GDBM_OPT_BADVAL, FALSE);
+  return -1;
+}
 
 typedef int (*setopt_handler) (GDBM_FILE, void *, int);
 
@@ -322,6 +406,11 @@ static setopt_handler setopt_handler_tab[] = {
   [GDBM_GETFLAGS]        = setopt_gdbm_getflags,
   [GDBM_GETDBNAME]       = setopt_gdbm_getdbname,
   [GDBM_GETBLOCKSIZE]    = setopt_gdbm_getblocksize,
+  [GDBM_GETDBFORMAT]     = setopt_gdbm_getdbformat,
+  [GDBM_GETDIRDEPTH]     = setopt_gdbm_getdirdepth,
+  [GDBM_GETBUCKETSIZE]   = setopt_gdbm_getbucketsize,
+  [GDBM_GETCACHEAUTO]    = setopt_gdbm_getcacheauto,
+  [GDBM_SETCACHEAUTO]    = setopt_gdbm_setcacheauto,
 };
   
 int

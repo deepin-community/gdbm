@@ -1,5 +1,5 @@
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 1990-2021 Free Software Foundation, Inc.
+   Copyright (C) 1990-2022 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -222,8 +222,12 @@ gdbmtool_init (void *data, instream_t *pinstr)
 	break;
 	
       default:
-	terror (_("unknown option %c; try `%s -h' for more info"),
-		optopt, progname);
+	if (optopt == 0)
+	  terror (_("unknown option %s; try `%s -h' for more info"),
+		  argv[optind-1], progname);
+	else
+	  terror (_("unknown option %c; try `%s -h' for more info"),
+		  optopt, progname);
 	exit (EXIT_USAGE);
       }
   

@@ -1,5 +1,5 @@
 # This file is part of GDBM.                                   -*- autoconf -*-
-# Copyright (C) 2011-2021 Free Software Foundation, Inc.
+# Copyright (C) 2011-2022 Free Software Foundation, Inc.
 #
 # GDBM is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -77,7 +77,9 @@ TESTSUITE_AT = \
  fetch01.at\
  setopt00.at\
  setopt01.at\
- version.at
+ setopt02.at\
+ version.at\
+ wordwrap.at
 
 TESTSUITE = $(srcdir)/testsuite
 M4=m4
@@ -114,6 +116,7 @@ check_PROGRAMS = \
  fdop\
  g_open_ce\
  g_reorg_ce\
+ gtcacheopt\
  gtconv\
  gtdel\
  gtdump\
@@ -123,9 +126,10 @@ check_PROGRAMS = \
  gtrecover\
  gtver\
  num2word\
+ t_wordwrap\
  $(DBMPROGS)
 
-AM_CPPFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src $(DBMINCLUDES)
+AM_CPPFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src -I$(top_srcdir)/tools $(DBMINCLUDES)
 
 noinst_HEADERS=progname.h
 
@@ -136,6 +140,6 @@ dtdump_LDADD = ../src/libgdbm.la ../compat/libgdbm_compat.la
 dtfetch_LDADD = ../src/libgdbm.la ../compat/libgdbm_compat.la
 dtdel_LDADD = ../src/libgdbm.la ../compat/libgdbm_compat.la
 d_creat_ce_LDADD = ../src/libgdbm.la ../compat/libgdbm_compat.la
+t_wordwrap_LDADD = ../tools/libgdbmapp.a
 
 SUBDIRS = gdbmtool
-

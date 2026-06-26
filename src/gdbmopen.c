@@ -1,7 +1,7 @@
 /* gdbmopen.c - Open the dbm file and initialize data structures for use. */
 
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 1990-2021 Free Software Foundation, Inc.
+   Copyright (C) 1990-2022 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -270,10 +270,6 @@ gdbm_fd_open (int fd, const char *file_name, int block_size,
   dbf->dir  = NULL;
   dbf->bucket = NULL;
   dbf->header = NULL;
-
-  /* Initialize cache */
-  dbf->cache_tree = _gdbm_cache_tree_alloc ();
-  _gdbm_cache_init (dbf, DEFAULT_CACHESIZE);
 
   dbf->file_size = -1;
 
@@ -640,6 +636,17 @@ gdbm_fd_open (int fd, const char *file_name, int block_size,
 
     }
 
+  if (_gdbm_cache_init (dbf, DEFAULT_CACHESIZE))
+    {
+      GDBM_DEBUG (GDBM_DEBUG_ERR|GDBM_DEBUG_OPEN,
+		  "%s: error initializing cache: %s",
+		  dbf->name, gdbm_db_strerror (dbf));
+      if (!(flags & GDBM_CLOERROR))
+	dbf->desc = -1;
+      SAVE_ERRNO (gdbm_close (dbf));
+      return NULL;
+    }
+      
 #if HAVE_MMAP
   if (!(flags & GDBM_NOMMAP))
     {
@@ -666,8 +673,6 @@ gdbm_fd_open (int fd, const char *file_name, int block_size,
   dbf->bucket_dir = 0;
   dbf->header_changed = FALSE;
   dbf->directory_changed = FALSE;
-  dbf->bucket_changed = FALSE;
-  dbf->second_changed = FALSE;
 
   if (flags & GDBM_XVERIFY)
     {
@@ -697,7 +702,7 @@ gdbm_fd_open (int fd, const char *file_name, int block_size,
    not exist, create a new one.  If FLAGS is GDBM_NEWDB, the user want a
    new database created, regardless of whether one existed, and wants read
    and write access to the new database.  Any error detected will cause a 
-   return value of null and an approprate value will be in gdbm_errno.  If
+   return value of null and an appropriate value will be in gdbm_errno.  If
    no errors occur, a pointer to the "gdbm file descriptor" will be
    returned. */
    

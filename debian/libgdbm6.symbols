@@ -8,14 +8,9 @@ libgdbm.so.6 libgdbm6 #MINVER#
  _gdbm_cache_flush@Base 1.20
  _gdbm_cache_free@Base 1.20
  _gdbm_cache_init@Base 1.20
- _gdbm_cache_tree_alloc@Base 1.20
- _gdbm_cache_tree_delete@Base 1.20
- _gdbm_cache_tree_destroy@Base 1.20
- _gdbm_cache_tree_lookup@Base 1.20
  _gdbm_dump_ascii@Base 1.16
  _gdbm_end_update@Base 1.16
  _gdbm_fatal@Base 1.16
- _gdbm_fetch_data@Base 1.20
  _gdbm_file_extend@Base 1.16
  _gdbm_file_size@Base 1.16
  _gdbm_findkey@Base 1.16
@@ -38,7 +33,7 @@ libgdbm.so.6 libgdbm6 #MINVER#
  _gdbm_next_bucket_dir@Base 1.16
  _gdbm_put_av_elem@Base 1.16
  _gdbm_read_entry@Base 1.16
- _gdbm_snapshot@Base 1.21
+ (arch=linux-any)_gdbm_snapshot@Base 1.21
  _gdbm_split_bucket@Base 1.16
  _gdbm_str2fmt@Base 1.21
  _gdbm_unlock_file@Base 1.16
