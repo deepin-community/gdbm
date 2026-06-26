@@ -1,3 +1,27 @@
+gdbm (1.23-3) unstable; urgency=medium
+
+  * libgdbm-compat-dev: Add dependency libgdbm-dev (Closes: #1021123)
+
+ -- Nicolas Mora <babelouest@debian.org>  Sun, 02 Oct 2022 20:24:12 -0400
+
+gdbm (1.23-2) unstable; urgency=medium
+
+  [ Samuel Thibault ]
+  * d/symbols: fix ftbfs on !linux (Closes: #1018234)
+
+  [ Nicolas Mora ]
+  * d/control: Update standards version to 4.6.1 (no change)
+
+ -- Nicolas Mora <babelouest@debian.org>  Sun, 04 Sep 2022 09:42:54 -0400
+
+gdbm (1.23-1) unstable; urgency=medium
+
+  * New upstream release
+  * d/copyright: update copyright year
+  * d/symbols: update symbols file
+
+ -- Nicolas Mora <babelouest@debian.org>  Sat, 05 Feb 2022 09:28:32 -0500
+
 gdbm (1.22-1) unstable; urgency=medium
 
   [ Debian Janitor ]

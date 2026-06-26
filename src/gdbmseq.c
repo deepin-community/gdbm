@@ -1,7 +1,7 @@
 /* gdbmseq.c - Routines to visit all keys.  Not in sorted order. */
 
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 1990-2021 Free Software Foundation, Inc.
+   Copyright (C) 1990-2022 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -68,7 +68,7 @@ get_next_key (GDBM_FILE dbf, int elem_loc, datum *return_val)
 	  /* Find the next bucket.  It is possible several entries in
 	     the bucket directory point to the same bucket. */
 	  while (dbf->bucket_dir < GDBM_DIR_COUNT (dbf)
-		 && dbf->cache_entry->ca_adr == dbf->dir[dbf->bucket_dir])
+		 && dbf->cache_mru->ca_adr == dbf->dir[dbf->bucket_dir])
 	    dbf->bucket_dir++;
 
 	  /* Check to see if there was a next bucket. */

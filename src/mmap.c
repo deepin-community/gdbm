@@ -1,5 +1,5 @@
 /* This file is part of GDBM.
-   Copyright (C) 2007-2021 Free Software Foundation, Inc.
+   Copyright (C) 2007-2022 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@
 
 /* Translate current offset in the mapped region into the absolute position */
 # define _GDBM_MMAPPED_POS(dbf) ((dbf)->mapped_off + (dbf)->mapped_pos)
-/* Return true if the absolute offset OFF lies within the currentlty mmapped
+/* Return true if the absolute offset OFF lies within the currently mmapped
    region */
 # define _GDBM_IN_MAPPED_REGION_P(dbf, off) \
   ((off) >= (dbf)->mapped_off \
@@ -127,7 +127,7 @@ _gdbm_internal_remap (GDBM_FILE dbf, size_t size)
    If the file is opened with write permissions, FLAG controls how
    it is expanded.  The value _REMAP_DEFAULT truncates SIZE to the
    actual file size.  The value _REMAP_EXTEND extends the file, if
-   necessary, to accomodate max(SIZE,dbf->header->next_block) bytes.
+   necessary, to accommodate max(SIZE,dbf->header->next_block) bytes.
    Finally, the value _REMAP_END instructs the function to use 
    max(SIZE, file_size) as the upper bound of the mapped region.
 

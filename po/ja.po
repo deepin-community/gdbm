@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gdbm 1.10\n"
 "Report-Msgid-Bugs-To: bug-gdbm@gnu.org\n"
-"POT-Creation-Date: 2021-10-19 07:55+0300\n"
+"POT-Creation-Date: 2022-02-04 16:04+0200\n"
 "PO-Revision-Date: 2012-03-24 22:08+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -19,188 +19,22 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/bucket.c:267 src/bucket.c:538 src/bucket.c:647 src/falloc.c:211
-#: src/falloc.c:337 src/findkey.c:124 src/gdbmstore.c:168 src/update.c:36
-#: src/update.c:88
+#: src/bucket.c:399 src/bucket.c:684 src/falloc.c:211 src/falloc.c:337
+#: src/findkey.c:124 src/gdbmstore.c:168 src/update.c:36 src/update.c:76
 msgid "lseek error"
 msgstr "lseek エラーです"
 
-#: src/bucket.c:395
+#: src/bucket.c:534
 msgid "directory overflow"
 msgstr ""
 
-#: src/bucket.c:406 src/falloc.c:302 src/findkey.c:97 src/findkey.c:113
+#: src/bucket.c:545 src/falloc.c:302 src/findkey.c:97 src/findkey.c:113
 msgid "malloc error"
 msgstr "malloc エラーです"
-
-#: src/datconv.c:291
-#, fuzzy, c-format
-msgid "(not enough data)"
-msgstr "%s: 十分な引数がありません"
-
-#: src/datconv.c:383
-msgid "cannot convert"
-msgstr ""
-
-#: src/datconv.c:392
-#, fuzzy, c-format
-msgid "cannot convert value #%d: %s"
-msgstr "ページャー `%s' を実行できません: %s"
-
-#: src/datconv.c:418 src/datconv.c:467
-msgid "mixing tagged and untagged values is not allowed"
-msgstr ""
-
-#: src/datconv.c:472
-#, c-format
-msgid "%s: no such field in datum"
-msgstr ""
 
 #: src/falloc.c:201
 msgid "malloc failed"
 msgstr "malloc に失敗しました"
-
-#: src/gdbm_dump.c:22
-msgid "dump a GDBM database to a file"
-msgstr ""
-
-#: src/gdbm_dump.c:23
-msgid "DB_FILE [FILE]"
-msgstr ""
-
-#: src/gdbm_dump.c:25
-msgid "select dump format"
-msgstr ""
-
-#: src/gdbm_dump.c:67
-#, fuzzy
-msgid "unknown dump format"
-msgstr "不明な更新"
-
-#: src/gdbm_dump.c:74 src/gdbm_load.c:215
-#, fuzzy
-msgid "unknown option"
-msgstr "不明な更新"
-
-#: src/gdbm_dump.c:90 src/gdbm_load.c:231
-#, fuzzy, c-format
-msgid "too many arguments; try `%s -h' for more info"
-msgstr "不明なオプションです。詳細は `%s -h' を参照してください。\n"
-
-#: src/gdbm_dump.c:110 src/gdbm_load.c:251
-#, fuzzy, c-format
-msgid "cannot open %s"
-msgstr "ページャー `%s' を実行できません: %s"
-
-#: src/gdbm_dump.c:118 src/gdbm_load.c:261
-#, fuzzy
-msgid "gdbm_open failed"
-msgstr "gdbm_open に失敗しました: %s"
-
-#: src/gdbm_dump.c:125
-#, fuzzy
-msgid "dump error"
-msgstr "読み込みエラーです"
-
-#: src/gdbm_load.c:32
-msgid "load a GDBM database from a file"
-msgstr ""
-
-#: src/gdbm_load.c:33
-msgid "FILE [DB_FILE]"
-msgstr ""
-
-#: src/gdbm_load.c:35
-msgid "replace records in the existing database"
-msgstr ""
-
-#: src/gdbm_load.c:36
-msgid "MODE"
-msgstr ""
-
-#: src/gdbm_load.c:36
-#, fuzzy
-msgid "set file mode"
-msgstr "ファイルヘッダを表示する"
-
-#: src/gdbm_load.c:37
-msgid "NAME|UID[:NAME|GID]"
-msgstr ""
-
-#: src/gdbm_load.c:37
-msgid "set file owner"
-msgstr ""
-
-#: src/gdbm_load.c:38
-msgid "do not attempt to set file meta-data"
-msgstr ""
-
-#: src/gdbm_load.c:39
-msgid "use memory mapping"
-msgstr ""
-
-#: src/gdbm_load.c:40 src/gdbm_load.c:41
-msgid "NUM"
-msgstr ""
-
-#: src/gdbm_load.c:40
-msgid "set the cache size"
-msgstr ""
-
-#: src/gdbm_load.c:41
-#, fuzzy
-msgid "set the block size"
-msgstr "  ブロックサイズ = %d\n"
-
-#: src/gdbm_load.c:79
-#, c-format
-msgid "invalid number: %s"
-msgstr ""
-
-#: src/gdbm_load.c:84
-#, c-format
-msgid "invalid number: %s: %s"
-msgstr ""
-
-#: src/gdbm_load.c:136
-#, fuzzy, c-format
-msgid "invalid octal number"
-msgstr "間違ったマジック番号"
-
-#: src/gdbm_load.c:161
-#, c-format
-msgid "invalid user name: %s"
-msgstr ""
-
-#: src/gdbm_load.c:180
-#, c-format
-msgid "invalid group name: %s"
-msgstr ""
-
-#: src/gdbm_load.c:192
-#, c-format
-msgid "no such UID: %lu"
-msgstr ""
-
-#: src/gdbm_load.c:267
-#, c-format
-msgid "gdbm_setopt failed: %s"
-msgstr "gdbm_setopt に失敗しました: %s"
-
-#: src/gdbm_load.c:281 src/gdbm_load.c:299
-#, c-format
-msgid "error restoring metadata: %s (%s)"
-msgstr ""
-
-#: src/gdbm_load.c:290 src/gdbmshell.c:1458
-#, c-format
-msgid "cannot load from %s"
-msgstr ""
-
-#: src/gdbm_load.c:307
-#, fuzzy
-msgid "gdbm_setopt failed"
-msgstr "gdbm_setopt に失敗しました: %s"
 
 #: src/gdbmerrno.c:102
 msgid "No error"
@@ -388,175 +222,263 @@ msgstr ""
 msgid "Function usage error"
 msgstr "ファイル探索 (seek) エラー"
 
-#: src/gdbmtool.c:48
-#, fuzzy
-msgid "cannot find home directory"
-msgstr "ハッシュディレクトリーを表示する"
-
-#: src/gdbmtool.c:82
-#, fuzzy
-msgid "examine and/or modify a GDBM database"
-msgstr "GDBM データベースのテストおよび修正を行います。\n"
-
-#: src/gdbmtool.c:83
-msgid "DBFILE [COMMAND [ARG ...]]"
-msgstr ""
-
-#: src/gdbmtool.c:91 src/gdbmtool.c:92
-msgid "SIZE"
-msgstr ""
-
-#: src/gdbmtool.c:91
-#, fuzzy
-msgid "set block size"
-msgstr "  ブロックサイズ = %d\n"
-
-#: src/gdbmtool.c:92
-msgid "set cache size"
-msgstr ""
-
-#: src/gdbmtool.c:93 src/gdbmshell.c:1800 src/gdbmshell.c:1828
-msgid "FILE"
-msgstr ""
-
-#: src/gdbmtool.c:93
-msgid "read commands from FILE"
-msgstr ""
-
-#: src/gdbmtool.c:95
-#, fuzzy
-msgid "disable file locking"
-msgstr "  -l                 ファイルロックを無効にする\n"
-
-#: src/gdbmtool.c:96
-msgid "do not use mmap"
-msgstr ""
-
-#: src/gdbmtool.c:97
-#, fuzzy
-msgid "create database"
-msgstr "空データベース"
-
-#: src/gdbmtool.c:98
-msgid "do not read .gdbmtoolrc file"
-msgstr ""
-
-#: src/gdbmtool.c:99
-#, fuzzy
-msgid "open database in read-only mode"
-msgstr "  -r                 読み取り専用モードでデータベースを開く\n"
-
-#: src/gdbmtool.c:100
-#, fuzzy
-msgid "synchronize to disk after each write"
-msgstr "  -s                 書き込み後に毎回ディスクを同期する\n"
-
-#: src/gdbmtool.c:101
-msgid "don't print initial banner"
-msgstr ""
-
-#. TRANSLATORS: File Descriptor.
-#: src/gdbmtool.c:104
-msgid "FD"
-msgstr ""
-
-#: src/gdbmtool.c:105
-msgid "open database at the given file descriptor"
-msgstr ""
-
-#: src/gdbmtool.c:106
-msgid "extended format (numsync)"
-msgstr ""
-
-#: src/gdbmtool.c:108
-msgid "enable trace mode"
-msgstr ""
-
-#: src/gdbmtool.c:109
-msgid "print timing after each command"
-msgstr ""
-
-#: src/gdbmtool.c:111
-msgid "enable lexical analyzer traces"
-msgstr ""
-
-#: src/gdbmtool.c:112
-msgid "enable grammar traces"
-msgstr ""
-
-#: src/gdbmtool.c:149
+#: src/recover.c:272
 #, c-format
-msgid "invalid file descriptor: %s"
+msgid "can't read bucket #%d: %s"
 msgstr ""
 
-#: src/gdbmtool.c:225
+#: src/recover.c:300
+#, c-format
+msgid "can't read key pair %d:%d (%lu:%d): %s"
+msgstr ""
+
+#: src/recover.c:330
+#, c-format
+msgid "ignoring duplicate key %d:%d (%lu:%d)"
+msgstr ""
+
+#: src/recover.c:340
+#, c-format
+msgid "fatal: can't store element %d:%d (%lu:%d): %s"
+msgstr ""
+
+#: tools/datconv.c:291
 #, fuzzy, c-format
-msgid "unknown option %c; try `%s -h' for more info"
+msgid "(not enough data)"
+msgstr "%s: 十分な引数がありません"
+
+#: tools/datconv.c:383
+msgid "cannot convert"
+msgstr ""
+
+#: tools/datconv.c:392
+#, fuzzy, c-format
+msgid "cannot convert value #%d: %s"
+msgstr "ページャー `%s' を実行できません: %s"
+
+#: tools/datconv.c:418 tools/datconv.c:467
+msgid "mixing tagged and untagged values is not allowed"
+msgstr ""
+
+#: tools/datconv.c:472
+#, c-format
+msgid "%s: no such field in datum"
+msgstr ""
+
+#: tools/gdbm_dump.c:22
+msgid "dump a GDBM database to a file"
+msgstr ""
+
+#: tools/gdbm_dump.c:23
+msgid "DB_FILE [FILE]"
+msgstr ""
+
+#: tools/gdbm_dump.c:25
+msgid "select dump format"
+msgstr ""
+
+#: tools/gdbm_dump.c:67
+#, fuzzy
+msgid "unknown dump format"
+msgstr "不明な更新"
+
+#: tools/gdbm_dump.c:74 tools/gdbm_load.c:215
+#, fuzzy
+msgid "unknown option"
+msgstr "不明な更新"
+
+#: tools/gdbm_dump.c:90 tools/gdbm_load.c:231
+#, fuzzy, c-format
+msgid "too many arguments; try `%s -h' for more info"
 msgstr "不明なオプションです。詳細は `%s -h' を参照してください。\n"
 
-#: src/gdbmtool.c:249
-msgid "--file and command cannot be used together"
+#: tools/gdbm_dump.c:110 tools/gdbm_load.c:251
+#, fuzzy, c-format
+msgid "cannot open %s"
+msgstr "ページャー `%s' を実行できません: %s"
+
+#: tools/gdbm_dump.c:118 tools/gdbm_load.c:261
+#, fuzzy
+msgid "gdbm_open failed"
+msgstr "gdbm_open に失敗しました: %s"
+
+#: tools/gdbm_dump.c:125
+#, fuzzy
+msgid "dump error"
+msgstr "読み込みエラーです"
+
+#: tools/gdbm_load.c:32
+msgid "load a GDBM database from a file"
 msgstr ""
 
-#: src/gdbmshell.c:64 src/gdbmshell.c:157 src/gdbmshell.c:318
-#: src/gdbmshell.c:454 src/gdbmshell.c:832
+#: tools/gdbm_load.c:33
+msgid "FILE [DB_FILE]"
+msgstr ""
+
+#: tools/gdbm_load.c:35
+msgid "replace records in the existing database"
+msgstr ""
+
+#: tools/gdbm_load.c:36
+msgid "MODE"
+msgstr ""
+
+#: tools/gdbm_load.c:36
+#, fuzzy
+msgid "set file mode"
+msgstr "ファイルヘッダを表示する"
+
+#: tools/gdbm_load.c:37
+msgid "NAME|UID[:NAME|GID]"
+msgstr ""
+
+#: tools/gdbm_load.c:37
+msgid "set file owner"
+msgstr ""
+
+#: tools/gdbm_load.c:38
+msgid "do not attempt to set file meta-data"
+msgstr ""
+
+#: tools/gdbm_load.c:39
+msgid "use memory mapping"
+msgstr ""
+
+#: tools/gdbm_load.c:40 tools/gdbm_load.c:41
+msgid "NUM"
+msgstr ""
+
+#: tools/gdbm_load.c:40
+msgid "set the cache size"
+msgstr ""
+
+#: tools/gdbm_load.c:41
+#, fuzzy
+msgid "set the block size"
+msgstr "  ブロックサイズ = %d\n"
+
+#: tools/gdbm_load.c:79
+#, c-format
+msgid "invalid number: %s"
+msgstr ""
+
+#: tools/gdbm_load.c:84
+#, fuzzy, c-format
+msgid "invalid number: %s: %s"
+msgstr "間違ったマジック番号"
+
+#: tools/gdbm_load.c:136
+#, fuzzy, c-format
+msgid "invalid octal number"
+msgstr "間違ったマジック番号"
+
+#: tools/gdbm_load.c:161
+#, c-format
+msgid "invalid user name: %s"
+msgstr ""
+
+#: tools/gdbm_load.c:180
+#, c-format
+msgid "invalid group name: %s"
+msgstr ""
+
+#: tools/gdbm_load.c:192
+#, c-format
+msgid "no such UID: %lu"
+msgstr ""
+
+#: tools/gdbm_load.c:267
+#, c-format
+msgid "gdbm_setopt failed: %s"
+msgstr "gdbm_setopt に失敗しました: %s"
+
+#: tools/gdbm_load.c:281 tools/gdbm_load.c:299
+#, c-format
+msgid "error restoring metadata: %s (%s)"
+msgstr ""
+
+#: tools/gdbm_load.c:290 tools/gdbmshell.c:1635
+#, c-format
+msgid "cannot load from %s"
+msgstr ""
+
+#: tools/gdbm_load.c:307
+#, fuzzy
+msgid "gdbm_setopt failed"
+msgstr "gdbm_setopt に失敗しました: %s"
+
+#: tools/gdbmshell.c:64 tools/gdbmshell.c:157 tools/gdbmshell.c:361
+#: tools/gdbmshell.c:497 tools/gdbmshell.c:873 tools/gdbmshell.c:910
+#: tools/gdbmshell.c:919
 #, fuzzy, c-format
 msgid "%s failed"
 msgstr "malloc に失敗しました"
 
-#: src/gdbmshell.c:120
+#: tools/gdbmshell.c:120
 #, c-format
 msgid "database %s already exists; overwrite"
 msgstr ""
 
-#: src/gdbmshell.c:151
+#: tools/gdbmshell.c:151
 #, fuzzy, c-format
 msgid "cannot open database %s"
 msgstr "データを取得できません (キー %.*s)"
 
-#: src/gdbmshell.c:231
-#, fuzzy, c-format
-msgid ""
-"bits = %d\n"
-"count= %d\n"
-"Hash Table:\n"
+#: tools/gdbmshell.c:252
+#, c-format
+msgid "Bucket #%d"
 msgstr ""
-"******* %s **********\n"
-"\n"
-"ビット = %d\n"
-"数 = %d\n"
-"ハッシュ表:\n"
 
-#: src/gdbmshell.c:234
+#: tools/gdbmshell.c:255
+#, c-format
+msgid ""
+"address     = %lu\n"
+"depth       = %d\n"
+"hash prefix = %08x\n"
+"references  = %u"
+msgstr ""
+
+#: tools/gdbmshell.c:270
+#, c-format
+msgid ""
+"count       = %d\n"
+"load factor = %3d\n"
+msgstr ""
+
+#: tools/gdbmshell.c:275
+msgid "Hash Table:\n"
+msgstr ""
+
+#: tools/gdbmshell.c:277
 #, fuzzy, c-format
 msgid ""
 "    #    hash value     key size    data size     data adr home  key start\n"
 msgstr "     #    ハッシュ値     キーサイズ  データサイズ  データadr ホーム\n"
 
-#: src/gdbmshell.c:252
-#, c-format
+#: tools/gdbmshell.c:295
+#, fuzzy, c-format
 msgid ""
 "\n"
-"Avail count = %1d\n"
+"Avail count = %d\n"
 msgstr ""
 "\n"
 "利用可能数 = %1d\n"
 
-#: src/gdbmshell.c:253
+#: tools/gdbmshell.c:296
 #, fuzzy, c-format
 msgid "Address           size\n"
 msgstr "利用可 adr     サイズ\n"
 
-#: src/gdbmshell.c:304
+#: tools/gdbmshell.c:347
 msgid "header block"
 msgstr ""
 
-#: src/gdbmshell.c:306
+#: tools/gdbmshell.c:349
 #, fuzzy, c-format
 msgid "block = %lu"
 msgstr "  次ブロック  = %lu\n"
 
-#: src/gdbmshell.c:307
+#: tools/gdbmshell.c:350
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -568,7 +490,7 @@ msgstr ""
 "サイズ   = %d\n"
 "数       = %d\n"
 
-#: src/gdbmshell.c:331
+#: tools/gdbmshell.c:374
 #, fuzzy, c-format
 msgid ""
 "Bucket Cache (size %zu/%zu):\n"
@@ -577,160 +499,154 @@ msgstr ""
 "バケットキャッシュ (サイズ %d):\n"
 "  索引 :  アドレス 変更     データハッシュ\n"
 
-#: src/gdbmshell.c:338
+#: tools/gdbmshell.c:381
 msgid "True"
 msgstr "真"
 
-#: src/gdbmshell.c:338
+#: tools/gdbmshell.c:381
 msgid "False"
 msgstr "偽"
 
-#: src/gdbmshell.c:343
+#: tools/gdbmshell.c:386
 #, fuzzy, c-format
 msgid "Bucket cache is empty.\n"
 msgstr "バケットキャッシュが初期化されていません。\n"
 
-#: src/gdbmshell.c:420
+#: tools/gdbmshell.c:463
 msgid "nothing to close"
 msgstr ""
 
-#: src/gdbmshell.c:463
+#: tools/gdbmshell.c:506
 msgid "count buffer overflow"
 msgstr ""
 
-#: src/gdbmshell.c:466
+#: tools/gdbmshell.c:509
 #, fuzzy, c-format
 msgid "There is %s item in the database.\n"
 msgid_plural "There are %s items in the database.\n"
 msgstr[0] "データベースには %d 項目あります。\n"
 
-#: src/gdbmshell.c:483 src/gdbmshell.c:507 src/gdbmshell.c:587
+#: tools/gdbmshell.c:526 tools/gdbmshell.c:550 tools/gdbmshell.c:630
 #, fuzzy
 msgid "No such item found"
 msgstr "そのような項目はありません。\n"
 
-#: src/gdbmshell.c:486
+#: tools/gdbmshell.c:529
 #, fuzzy
 msgid "Can't delete"
 msgstr "削除できません: %s"
 
-#: src/gdbmshell.c:510
+#: tools/gdbmshell.c:553
 #, fuzzy
 msgid "Can't fetch data"
 msgstr "データを取得できません (キー %.*s)"
 
-#: src/gdbmshell.c:523
+#: tools/gdbmshell.c:566
 #, fuzzy
 msgid "Item not inserted"
 msgstr "項目が挿入されませんでした。\n"
 
-#: src/gdbmshell.c:551
+#: tools/gdbmshell.c:594
 #, c-format
 msgid "No such item found.\n"
 msgstr "そのような項目はありません。\n"
 
-#: src/gdbmshell.c:554
+#: tools/gdbmshell.c:597
 msgid "Can't find first key"
 msgstr ""
 
-#: src/gdbmshell.c:591
+#: tools/gdbmshell.c:634
 msgid "Can't find next key"
 msgstr ""
 
-#: src/gdbmshell.c:602
+#: tools/gdbmshell.c:645
 #, fuzzy
 msgid "Reorganization failed"
 msgstr "認識に失敗しました。\n"
 
-#: src/gdbmshell.c:606
+#: tools/gdbmshell.c:649
 #, fuzzy
 msgid "Reorganization succeeded."
 msgstr "認識に成功しました。\n"
 
-#: src/gdbmshell.c:657 src/gdbmshell.c:667 src/gdbmshell.c:677
-#: src/gdbmshell.c:792 src/gdbmshell.c:801
+#: tools/gdbmshell.c:700 tools/gdbmshell.c:710 tools/gdbmshell.c:720
+#: tools/gdbmshell.c:825 tools/gdbmshell.c:834
 #, fuzzy, c-format
 msgid "not a number (stopped near %s)"
 msgstr "数値ではありません (%s あたりで停止しました)\n"
 
-#: src/gdbmshell.c:684 src/gdbmshell.c:1384 src/gdbmshell.c:1419
+#: tools/gdbmshell.c:727 tools/gdbmshell.c:1561 tools/gdbmshell.c:1596
 #, c-format
 msgid "unrecognized argument: %s"
 msgstr ""
 
-#: src/gdbmshell.c:693
+#: tools/gdbmshell.c:736
 #, fuzzy, c-format
 msgid "Recovery succeeded.\n"
 msgstr "認識に成功しました。\n"
 
-#: src/gdbmshell.c:697
+#: tools/gdbmshell.c:740
 #, c-format
 msgid "Keys recovered: %lu, failed: %lu, duplicate: %lu\n"
 msgstr ""
 
-#: src/gdbmshell.c:702
+#: tools/gdbmshell.c:745
 #, c-format
 msgid "Buckets recovered: %lu, failed: %lu\n"
 msgstr ""
 
-#: src/gdbmshell.c:710
+#: tools/gdbmshell.c:753
 #, c-format
 msgid "Original database preserved in file %s"
 msgstr ""
 
-#: src/gdbmshell.c:718
+#: tools/gdbmshell.c:761
 #, fuzzy
 msgid "Recovery failed"
 msgstr "認識失敗"
 
-#: src/gdbmshell.c:769
+#: tools/gdbmshell.c:812 tools/gdbmshell.c:894
 #, fuzzy, c-format
 msgid "no current bucket\n"
 msgstr "現在のバケットを表示する"
 
-#: src/gdbmshell.c:773
-#, c-format
-msgid "Bucket #%s"
-msgstr ""
-
-#: src/gdbmshell.c:776
-msgid "Current bucket"
-msgstr "現在のバケット"
-
-#: src/gdbmshell.c:777
-#, c-format
-msgid ""
-"\n"
-" current directory entry = %d.\n"
-msgstr ""
-"\n"
-" 現在のディレクトリー項目 = %d。\n"
-
-#: src/gdbmshell.c:779
-#, c-format
-msgid " current bucket address  = %lu.\n"
-msgstr " 現在のバケットアドレス = %lu。\n"
-
-#: src/gdbmshell.c:826
+#: tools/gdbmshell.c:861
 #, c-format
 msgid "bucket number out of range (0..%lu)"
 msgstr ""
 
-#: src/gdbmshell.c:874
+#: tools/gdbmshell.c:904 tools/gdbmshell.c:916
+#, c-format
+msgid "no sibling\n"
+msgstr ""
+
+#: tools/gdbmshell.c:964
 #, c-format
 msgid "Hash table directory.\n"
 msgstr "ハッシュ表ディレクトリーです。\n"
 
-#: src/gdbmshell.c:875
+#: tools/gdbmshell.c:965
 #, fuzzy, c-format
 msgid ""
-"  Size =  %d.  Bits = %d,  Buckets = %zu.\n"
+"  Size =  %d.  Capacity = %lu.  Bits = %d,  Buckets = %zu.\n"
 "\n"
 msgstr ""
 "  サイズ =  %d。 ビット = %d。\n"
 "\n"
 
-#: src/gdbmshell.c:944
+#: tools/gdbmshell.c:972
+msgid "Index"
+msgstr ""
+
+#: tools/gdbmshell.c:972
+msgid "Hash Pfx"
+msgstr ""
+
+#: tools/gdbmshell.c:972
+msgid "Bucket address"
+msgstr ""
+
+#: tools/gdbmshell.c:1040
 #, c-format
 msgid ""
 "\n"
@@ -741,67 +657,71 @@ msgstr ""
 "ファイルヘッダ: \n"
 "\n"
 
-#: src/gdbmshell.c:945
+#: tools/gdbmshell.c:1041
 #, fuzzy, c-format
-msgid "  type         = %s\n"
+msgid "  type            = %s\n"
 msgstr "  表           = %lu\n"
 
-#: src/gdbmshell.c:946
-#, c-format
-msgid "  table        = %lu\n"
-msgstr "  表           = %lu\n"
+#: tools/gdbmshell.c:1042
+#, fuzzy, c-format
+msgid "  directory start = %lu\n"
+msgstr ""
+"\n"
+" 現在のディレクトリー項目 = %d。\n"
 
-#: src/gdbmshell.c:948
-#, c-format
-msgid "  table size   = %d\n"
-msgstr "  表サイズ     = %d\n"
-
-#: src/gdbmshell.c:949
-#, c-format
-msgid "  table bits   = %d\n"
-msgstr "  表ビット     = %d\n"
-
-#: src/gdbmshell.c:950
-#, c-format
-msgid "  block size   = %d\n"
-msgstr "  ブロックサイズ = %d\n"
-
-#: src/gdbmshell.c:951
-#, c-format
-msgid "  bucket elems = %d\n"
-msgstr "  バケット要素数 = %d\n"
-
-#: src/gdbmshell.c:952
-#, c-format
-msgid "  bucket size  = %d\n"
+#: tools/gdbmshell.c:1044
+#, fuzzy, c-format
+msgid "  directory size  = %d\n"
 msgstr "  バケットサイズ = %d\n"
 
-#: src/gdbmshell.c:953
-#, c-format
-msgid "  header magic = %x\n"
+#: tools/gdbmshell.c:1045
+#, fuzzy, c-format
+msgid "  directory depth = %d\n"
+msgstr ""
+"\n"
+" 現在のディレクトリー項目 = %d。\n"
+
+#: tools/gdbmshell.c:1046
+#, fuzzy, c-format
+msgid "  block size      = %d\n"
+msgstr "  ブロックサイズ = %d\n"
+
+#: tools/gdbmshell.c:1047
+#, fuzzy, c-format
+msgid "  bucket elems    = %d\n"
+msgstr "  バケット要素数 = %d\n"
+
+#: tools/gdbmshell.c:1048
+#, fuzzy, c-format
+msgid "  bucket size     = %d\n"
+msgstr "  バケットサイズ = %d\n"
+
+#: tools/gdbmshell.c:1049
+#, fuzzy, c-format
+msgid "  header magic    = %x\n"
 msgstr "  ヘッダマジック番号 = %x\n"
 
-#: src/gdbmshell.c:954
-#, c-format
-msgid "  next block   = %lu\n"
+#: tools/gdbmshell.c:1050
+#, fuzzy, c-format
+msgid "  next block      = %lu\n"
 msgstr "  次ブロック  = %lu\n"
 
-#: src/gdbmshell.c:957
-#, c-format
-msgid "  avail size   = %d\n"
+#: tools/gdbmshell.c:1053
+#, fuzzy, c-format
+msgid "  avail size      = %d\n"
 msgstr "  使用可能サイズ = %d\n"
 
-#: src/gdbmshell.c:958
-#, c-format
-msgid "  avail count  = %d\n"
+#: tools/gdbmshell.c:1054
+#, fuzzy, c-format
+msgid "  avail count     = %d\n"
 msgstr "  使用可能数   = %d\n"
 
-#: src/gdbmshell.c:959
-#, c-format
-msgid "  avail nx blk = %lu\n"
+#: tools/gdbmshell.c:1055
+#, fuzzy, c-format
+msgid "  avail next block= %lu\n"
 msgstr "  使用可能な次ブロック = %lu\n"
 
-#: src/gdbmshell.c:964
+#: tools/gdbmshell.c:1060
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -812,362 +732,385 @@ msgstr ""
 "ファイルヘッダ: \n"
 "\n"
 
-#: src/gdbmshell.c:965
+#: tools/gdbmshell.c:1061
 #, fuzzy, c-format
-msgid "       version = %d\n"
+msgid "      version = %d\n"
 msgstr "  使用可能数   = %d\n"
 
-#: src/gdbmshell.c:966
+#: tools/gdbmshell.c:1062
 #, fuzzy, c-format
-msgid "       numsync = %u\n"
+msgid "      numsync = %u\n"
 msgstr "  表           = %lu\n"
 
-#: src/gdbmshell.c:1080
+#: tools/gdbmshell.c:1176
 msgid "bad file mode"
 msgstr ""
 
-#: src/gdbmshell.c:1090
+#: tools/gdbmshell.c:1186
 msgid "insufficient precision"
 msgstr ""
 
 #. TRANSLATORS: Stands for "Not Available".
-#: src/gdbmshell.c:1103
+#: tools/gdbmshell.c:1199
 msgid "N/A"
 msgstr ""
 
-#: src/gdbmshell.c:1111 src/gdbmshell.c:1116
+#: tools/gdbmshell.c:1207 tools/gdbmshell.c:1212
 #, fuzzy
 msgid "can't open database"
 msgstr "空データベース"
 
-#: src/gdbmshell.c:1121
+#: tools/gdbmshell.c:1217
 msgid "not a regular file"
 msgstr ""
 
-#: src/gdbmshell.c:1126
+#: tools/gdbmshell.c:1222
 msgid "ERROR"
 msgstr ""
 
-#: src/gdbmshell.c:1136
+#: tools/gdbmshell.c:1232
 #, c-format
 msgid "%s: ERROR: can't stat: %s"
 msgstr ""
 
-#: src/gdbmshell.c:1160
+#: tools/gdbmshell.c:1256
 msgid "Invalid arguments in call to gdbm_latest_snapshot"
 msgstr ""
 
-#: src/gdbmshell.c:1165
+#: tools/gdbmshell.c:1261
 msgid ""
 "Function is not implemented: GDBM is built without crash-tolerance support"
 msgstr ""
 
-#: src/gdbmshell.c:1173
+#: tools/gdbmshell.c:1269
 msgid "Selected the most recent snapshot"
 msgstr ""
 
-#: src/gdbmshell.c:1177
+#: tools/gdbmshell.c:1273
 msgid "Neither snapshot is readable"
 msgstr ""
 
-#: src/gdbmshell.c:1182
+#: tools/gdbmshell.c:1278
 msgid "Error selecting snapshot"
 msgstr ""
 
-#: src/gdbmshell.c:1187
+#: tools/gdbmshell.c:1283
 msgid "Snapshot modes and dates are the same"
 msgstr ""
 
-#: src/gdbmshell.c:1192
+#: tools/gdbmshell.c:1288
 msgid "Snapshot sync counters differ by more than 1"
 msgstr ""
 
-#: src/gdbmshell.c:1218
+#: tools/gdbmshell.c:1314
 #, fuzzy, c-format
 msgid "unexpected error code: %d"
 msgstr "予期しないファイル終端 (EOF) です"
 
-#: src/gdbmshell.c:1235
+#: tools/gdbmshell.c:1331
 #, c-format
 msgid "hash value = %x, bucket #%u, slot %u"
 msgstr ""
 
-#: src/gdbmshell.c:1241
+#: tools/gdbmshell.c:1337
 #, fuzzy, c-format
 msgid "hash value = %x"
 msgstr "ハッシュ値 = %x。\n"
 
-#: src/gdbmshell.c:1328
+#: tools/gdbmshell.c:1390
+#, c-format
+msgid "unrecognized parameter: %s\n"
+msgstr ""
+
+#: tools/gdbmshell.c:1397
+msgid "select bucket first\n"
+msgstr ""
+
+#: tools/gdbmshell.c:1448
+#, c-format
+msgid "error reading entry %d"
+msgstr ""
+
+#: tools/gdbmshell.c:1457 tools/gdbmshell.c:1495
 msgid "the key was:"
 msgstr ""
 
-#: src/gdbmshell.c:1393
+#: tools/gdbmshell.c:1570
 #, fuzzy
 msgid "error dumping database"
 msgstr "空データベース"
 
-#: src/gdbmshell.c:1451
+#: tools/gdbmshell.c:1628
 msgid "error restoring metadata"
 msgstr ""
 
-#: src/gdbmshell.c:1485
+#: tools/gdbmshell.c:1661
 #, c-format
 msgid "Database file: %s\n"
 msgstr "データベースファイル: %s\n"
 
-#: src/gdbmshell.c:1487
+#: tools/gdbmshell.c:1663
 #, fuzzy
 msgid "Database is open"
 msgstr "データベースファイル: %s\n"
 
-#: src/gdbmshell.c:1489
+#: tools/gdbmshell.c:1665
 msgid "Database is not open"
 msgstr ""
 
-#: src/gdbmshell.c:1544
+#: tools/gdbmshell.c:1720
 #, c-format
 msgid "unknown debug flag: %s"
 msgstr ""
 
-#: src/gdbmshell.c:1547
+#: tools/gdbmshell.c:1723
 #, c-format
 msgid "invalid type of argument %d"
 msgstr ""
 
-#: src/gdbmshell.c:1552
+#: tools/gdbmshell.c:1728
 #, c-format
 msgid "Debug flags:"
 msgstr ""
 
-#: src/gdbmshell.c:1558
+#: tools/gdbmshell.c:1734
 msgid "none"
 msgstr ""
 
-#: src/gdbmshell.c:1562
+#: tools/gdbmshell.c:1738
 msgid "compiled without debug support"
 msgstr ""
 
-#: src/gdbmshell.c:1612
+#: tools/gdbmshell.c:1789
 #, c-format
 msgid "command failed with status %d"
 msgstr ""
 
-#: src/gdbmshell.c:1615
+#: tools/gdbmshell.c:1792
 #, c-format
 msgid "command terminated on signal %d"
 msgstr ""
 
 #. TRANSLATORS: %s is the stream name
-#: src/gdbmshell.c:1685
+#: tools/gdbmshell.c:1862
 #, c-format
 msgid "input history is not available for %s input stream"
 msgstr ""
 
-#: src/gdbmshell.c:1777
+#: tools/gdbmshell.c:1954
 msgid "count (number of entries)"
 msgstr "数 (項目数)"
 
-#: src/gdbmshell.c:1787 src/gdbmshell.c:1815 src/gdbmshell.c:1864
-#: src/gdbmshell.c:1964
+#: tools/gdbmshell.c:1964 tools/gdbmshell.c:1992 tools/gdbmshell.c:2045
+#: tools/gdbmshell.c:2154
 msgid "KEY"
 msgstr ""
 
-#: src/gdbmshell.c:1790
+#: tools/gdbmshell.c:1967
 msgid "delete a record"
 msgstr ""
 
-#: src/gdbmshell.c:1805
+#: tools/gdbmshell.c:1977 tools/gdbmshell.c:2005 tools/gdbmtool.c:93
+msgid "FILE"
+msgstr ""
+
+#: tools/gdbmshell.c:1982
 msgid "export"
 msgstr "export"
 
-#: src/gdbmshell.c:1818
+#: tools/gdbmshell.c:1995
 msgid "fetch record"
 msgstr ""
 
-#: src/gdbmshell.c:1833
+#: tools/gdbmshell.c:2010
 msgid "import"
 msgstr "import"
 
-#: src/gdbmshell.c:1841
+#: tools/gdbmshell.c:2022
 msgid "list"
 msgstr "list"
 
-#: src/gdbmshell.c:1851
+#: tools/gdbmshell.c:2032
 msgid "[KEY]"
 msgstr ""
 
-#: src/gdbmshell.c:1854
+#: tools/gdbmshell.c:2035
 msgid "continue iteration: get next key and datum"
 msgstr ""
 
-#: src/gdbmshell.c:1865
+#: tools/gdbmshell.c:2046
 msgid "DATA"
 msgstr ""
 
-#: src/gdbmshell.c:1868
+#: tools/gdbmshell.c:2049
 msgid "store"
 msgstr "store"
 
-#: src/gdbmshell.c:1877
+#: tools/gdbmshell.c:2058
 msgid "begin iteration: get first key and datum"
 msgstr ""
 
-#: src/gdbmshell.c:1886
+#: tools/gdbmshell.c:2067
 msgid "reorganize"
 msgstr "reorganize"
 
-#: src/gdbmshell.c:1905
+#: tools/gdbmshell.c:2086
 msgid "recover the database"
 msgstr ""
 
-#: src/gdbmshell.c:1914
+#: tools/gdbmshell.c:2095
 msgid "print avail list"
 msgstr "使用可能なリストを表示する"
 
-#: src/gdbmshell.c:1924
-msgid "NUMBER"
+#: tools/gdbmshell.c:2105
+msgid "[NUMBER]"
 msgstr ""
 
-#: src/gdbmshell.c:1927
+#: tools/gdbmshell.c:2108
 msgid "print a bucket"
 msgstr "バケットを表示する"
 
-#: src/gdbmshell.c:1936
+#: tools/gdbmshell.c:2117
 msgid "print current bucket"
 msgstr "現在のバケットを表示する"
 
-#: src/gdbmshell.c:1945
+#: tools/gdbmshell.c:2126
+#, fuzzy
+msgid "print sibling bucket"
+msgstr "バケットを表示する"
+
+#: tools/gdbmshell.c:2135
 msgid "print hash directory"
 msgstr "ハッシュディレクトリーを表示する"
 
-#: src/gdbmshell.c:1954
+#: tools/gdbmshell.c:2144
 #, fuzzy
 msgid "print database file header"
 msgstr "ファイルヘッダを表示する"
 
-#: src/gdbmshell.c:1967
+#: tools/gdbmshell.c:2157
 msgid "hash value of key"
 msgstr "キーのハッシュ値"
 
-#: src/gdbmshell.c:1975
+#: tools/gdbmshell.c:2165
 msgid "print the bucket cache"
 msgstr "バケットキャッシュを表示する"
 
-#: src/gdbmshell.c:1984
+#: tools/gdbmshell.c:2174
 msgid "print current program status"
 msgstr "プログラムの現在の状態を表示する"
 
-#: src/gdbmshell.c:1992
+#: tools/gdbmshell.c:2182
 msgid "Synchronize the database with disk copy"
 msgstr ""
 
-#: src/gdbmshell.c:2001
+#: tools/gdbmshell.c:2191
 msgid "Upgrade the database to extended format"
 msgstr ""
 
-#: src/gdbmshell.c:2010
+#: tools/gdbmshell.c:2200
 msgid "Downgrade the database to standard format"
 msgstr ""
 
-#: src/gdbmshell.c:2024
+#: tools/gdbmshell.c:2214
 msgid "analyze two database snapshots"
 msgstr ""
 
-#: src/gdbmshell.c:2032
+#: tools/gdbmshell.c:2222
 msgid "print version of gdbm"
 msgstr "gdbm のバージョンを表示する"
 
-#: src/gdbmshell.c:2040
+#: tools/gdbmshell.c:2230
 msgid "print this help list"
 msgstr "このヘルプリストを表示する"
 
-#: src/gdbmshell.c:2049
+#: tools/gdbmshell.c:2239
 msgid "quit the program"
 msgstr "プログラムを終了する"
 
-#: src/gdbmshell.c:2061
+#: tools/gdbmshell.c:2251
 msgid "set or list variables"
 msgstr ""
 
-#: src/gdbmshell.c:2072
+#: tools/gdbmshell.c:2262
 msgid "unset variables"
 msgstr ""
 
-#: src/gdbmshell.c:2084
+#: tools/gdbmshell.c:2274
 msgid "define datum structure"
 msgstr ""
 
-#: src/gdbmshell.c:2095
+#: tools/gdbmshell.c:2285
 msgid "source command script"
 msgstr ""
 
-#: src/gdbmshell.c:2103
+#: tools/gdbmshell.c:2293
 #, fuzzy
 msgid "close the database"
 msgstr "空データベース"
 
-#: src/gdbmshell.c:2115
+#: tools/gdbmshell.c:2305
 #, fuzzy
 msgid "open new database"
 msgstr "空データベース"
 
-#: src/gdbmshell.c:2124
+#: tools/gdbmshell.c:2314
 msgid "[FROM]"
 msgstr ""
 
-#: src/gdbmshell.c:2125
+#: tools/gdbmshell.c:2315
 msgid "[COUNT]"
 msgstr ""
 
-#: src/gdbmshell.c:2128
+#: tools/gdbmshell.c:2318
 msgid "show input history"
 msgstr ""
 
-#: src/gdbmshell.c:2137
+#: tools/gdbmshell.c:2327
 msgid "query/set debug level"
 msgstr ""
 
-#: src/gdbmshell.c:2145
+#: tools/gdbmshell.c:2335
 msgid "invoke the shell"
 msgstr ""
 
-#: src/gdbmshell.c:2157
+#: tools/gdbmshell.c:2347
 msgid "describe GDBM error code"
 msgstr ""
 
-#: src/gdbmshell.c:2302
+#: tools/gdbmshell.c:2492
 msgid "Invalid command. Try ? for help."
 msgstr "無効なコマンドです。ヘルプを見る場合は ? を試してみてください。"
 
-#: src/gdbmshell.c:2303
+#: tools/gdbmshell.c:2493
 msgid "Unknown command"
 msgstr "不明なコマンドです"
 
-#: src/gdbmshell.c:2618
+#: tools/gdbmshell.c:2808
 #, fuzzy, c-format
 msgid "cannot coerce %s to %s"
 msgstr "ページャー `%s' を実行できません: %s"
 
-#: src/gdbmshell.c:2780
+#: tools/gdbmshell.c:2957
 #, c-format
 msgid "%s: not enough arguments"
 msgstr "%s: 十分な引数がありません"
 
-#: src/gdbmshell.c:2788
+#: tools/gdbmshell.c:2964
 msgid "unexpected eof"
 msgstr "予期しないファイル終端 (EOF) です"
 
-#: src/gdbmshell.c:2805
+#: tools/gdbmshell.c:2980
 #, fuzzy, c-format
 msgid "%s: too many arguments"
 msgstr "%s: 十分な引数がありません"
 
-#: src/gdbmshell.c:2844
+#: tools/gdbmshell.c:3041
 #, c-format
 msgid "cannot run pager `%s': %s"
 msgstr "ページャー `%s' を実行できません: %s"
 
-#: src/gdbmshell.c:2935
+#: tools/gdbmshell.c:3146
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -1178,95 +1121,256 @@ msgstr ""
 "gdbm テストプログラムにようこそ。ヘルプを見る場合は ? と入力してください。\n"
 "\n"
 
-#: src/gram.y:163
+#: tools/gdbmtool.c:48
+#, fuzzy
+msgid "cannot find home directory"
+msgstr "ハッシュディレクトリーを表示する"
+
+#: tools/gdbmtool.c:82
+#, fuzzy
+msgid "examine and/or modify a GDBM database"
+msgstr "GDBM データベースのテストおよび修正を行います。\n"
+
+#: tools/gdbmtool.c:83
+msgid "DBFILE [COMMAND [ARG ...]]"
+msgstr ""
+
+#: tools/gdbmtool.c:91 tools/gdbmtool.c:92
+msgid "SIZE"
+msgstr ""
+
+#: tools/gdbmtool.c:91
+#, fuzzy
+msgid "set block size"
+msgstr "  ブロックサイズ = %d\n"
+
+#: tools/gdbmtool.c:92
+msgid "set cache size"
+msgstr ""
+
+#: tools/gdbmtool.c:93
+msgid "read commands from FILE"
+msgstr ""
+
+#: tools/gdbmtool.c:95
+#, fuzzy
+msgid "disable file locking"
+msgstr "  -l                 ファイルロックを無効にする\n"
+
+#: tools/gdbmtool.c:96
+msgid "do not use mmap"
+msgstr ""
+
+#: tools/gdbmtool.c:97
+#, fuzzy
+msgid "create database"
+msgstr "空データベース"
+
+#: tools/gdbmtool.c:98
+msgid "do not read .gdbmtoolrc file"
+msgstr ""
+
+#: tools/gdbmtool.c:99
+#, fuzzy
+msgid "open database in read-only mode"
+msgstr "  -r                 読み取り専用モードでデータベースを開く\n"
+
+#: tools/gdbmtool.c:100
+#, fuzzy
+msgid "synchronize to disk after each write"
+msgstr "  -s                 書き込み後に毎回ディスクを同期する\n"
+
+#: tools/gdbmtool.c:101
+msgid "don't print initial banner"
+msgstr ""
+
+#. TRANSLATORS: File Descriptor.
+#: tools/gdbmtool.c:104
+msgid "FD"
+msgstr ""
+
+#: tools/gdbmtool.c:105
+msgid "open database at the given file descriptor"
+msgstr ""
+
+#: tools/gdbmtool.c:106
+msgid "extended format (numsync)"
+msgstr ""
+
+#: tools/gdbmtool.c:108
+msgid "enable trace mode"
+msgstr ""
+
+#: tools/gdbmtool.c:109
+msgid "print timing after each command"
+msgstr ""
+
+#: tools/gdbmtool.c:111
+msgid "enable lexical analyzer traces"
+msgstr ""
+
+#: tools/gdbmtool.c:112
+msgid "enable grammar traces"
+msgstr ""
+
+#: tools/gdbmtool.c:149
+#, c-format
+msgid "invalid file descriptor: %s"
+msgstr ""
+
+#: tools/gdbmtool.c:226
+#, fuzzy, c-format
+msgid "unknown option %s; try `%s -h' for more info"
+msgstr "不明なオプションです。詳細は `%s -h' を参照してください。\n"
+
+#: tools/gdbmtool.c:229
+#, fuzzy, c-format
+msgid "unknown option %c; try `%s -h' for more info"
+msgstr "不明なオプションです。詳細は `%s -h' を参照してください。\n"
+
+#: tools/gdbmtool.c:253
+msgid "--file and command cannot be used together"
+msgstr ""
+
+#: tools/gram.y:172
 #, c-format
 msgid "duplicate tag: %s"
 msgstr ""
 
-#: src/gram.y:244
+#: tools/gram.y:253
 #, c-format
 msgid "expected \"key\" or \"content\", but found \"%s\""
 msgstr ""
 
-#: src/gram.y:316 src/gram.y:345 src/gram.y:377
+#: tools/gram.y:325 tools/gram.y:354 tools/gram.y:386
 #, c-format
 msgid "no such variable: %s"
 msgstr ""
 
-#: src/gram.y:320
+#: tools/gram.y:329
 #, c-format
 msgid "%s is not a boolean variable"
 msgstr ""
 
-#: src/gram.y:324
+#: tools/gram.y:333
 #, c-format
 msgid "%s: setting is not allowed"
 msgstr ""
 
-#: src/gram.y:328
+#: tools/gram.y:337
 #, fuzzy
 msgid "can't set variable"
 msgstr "読取器になれない"
 
-#: src/gram.y:332 src/gram.y:357
+#: tools/gram.y:341 tools/gram.y:366
 #, c-format
 msgid "unexpected error setting %s: %d"
 msgstr ""
 
-#: src/gram.y:349
+#: tools/gram.y:358
 #, c-format
 msgid "%s: bad variable type"
 msgstr ""
 
-#: src/gram.y:353
+#: tools/gram.y:362
 #, c-format
 msgid "%s: value %s is not allowed"
 msgstr ""
 
-#: src/gram.y:381
+#: tools/gram.y:390
 #, c-format
 msgid "%s: variable cannot be unset"
 msgstr ""
 
-#: src/lex.l:113
+#: tools/input-file.c:60
+#, fuzzy, c-format
+msgid "cannot open `%s': %s"
+msgstr "ページャー `%s' を実行できません: %s"
+
+#: tools/input-file.c:65
+#, c-format
+msgid "%s is not a regular file"
+msgstr ""
+
+#: tools/input-file.c:72
+#, fuzzy, c-format
+msgid "cannot open %s for reading: %s"
+msgstr "ファイル `%s' を読み取り用に開けません: %s"
+
+#: tools/lex.l:144
 msgid "recursive sourcing"
 msgstr ""
 
-#: src/lex.l:115
+#: tools/lex.l:146
 #, c-format
 msgid "%s already sourced here"
 msgstr ""
 
-#: src/lex.l:228 src/lex.l:238
+#: tools/lex.l:257 tools/lex.l:267
 msgid "invalid #line statement"
 msgstr ""
 
-#: src/parseopt.c:49
+#: tools/parseopt.c:49
 #, fuzzy
 msgid "give this help list"
 msgstr "このヘルプリストを表示する"
 
-#: src/parseopt.c:50
+#: tools/parseopt.c:50
 #, fuzzy
 msgid "print program version"
 msgstr "  -v                 プログラムのバージョンを表示する\n"
 
-#: src/parseopt.c:51
+#: tools/parseopt.c:51
 msgid "give a short usage message"
 msgstr ""
 
-#: src/parseopt.c:349 src/parseopt.c:432
+#: tools/parseopt.c:289
+#, c-format
+msgid "error in ARGP_HELP_FMT: improper usage of [no-]%s\n"
+msgstr ""
+
+#: tools/parseopt.c:307
+#, c-format
+msgid "error in ARGP_HELP_FMT: bad value for %s"
+msgstr ""
+
+#: tools/parseopt.c:311
+#, c-format
+msgid " (near %s)"
+msgstr ""
+
+#: tools/parseopt.c:320
+#, c-format
+msgid "error in ARGP_HELP_FMT: %s value is out of range\n"
+msgstr ""
+
+#: tools/parseopt.c:331
+#, c-format
+msgid "%s: ARGP_HELP_FMT parameter requires a value\n"
+msgstr ""
+
+#: tools/parseopt.c:340
+#, c-format
+msgid "%s: Unknown ARGP_HELP_FMT parameter\n"
+msgstr ""
+
+#: tools/parseopt.c:367
+#, c-format
+msgid "ARGP_HELP_FMT: missing delimiter near %s\n"
+msgstr ""
+
+#: tools/parseopt.c:487 tools/parseopt.c:565
 msgid "Usage:"
 msgstr ""
 
-#: src/parseopt.c:351
+#: tools/parseopt.c:489
 #, fuzzy
 msgid "OPTION"
 msgstr ""
 "オプション:\n"
 "\n"
 
-#: src/parseopt.c:365
+#: tools/parseopt.c:510
 msgid ""
 "Mandatory or optional arguments to long options are also mandatory or "
 "optional for any corresponding short options."
@@ -1276,7 +1380,7 @@ msgstr ""
 #. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/parseopt.c:376
+#: tools/parseopt.c:523
 #, fuzzy, c-format
 msgid "Report bugs to %s.\n"
 msgstr ""
@@ -1284,7 +1388,7 @@ msgstr ""
 "翻訳に関するバグは<translation-team-ja@lists.sourceforge.net>に報告してくださ"
 "い。\n"
 
-#: src/parseopt.c:379
+#: tools/parseopt.c:526
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr ""
@@ -1292,33 +1396,18 @@ msgstr ""
 #. TRANSLATORS: Translate "(C)" to the copyright symbol
 #. (C-in-a-circle), if this symbol is available in the user's
 #. locale.  Otherwise, do not translate "(C)"; leave it as-is.
-#: src/parseopt.c:542
+#: tools/parseopt.c:667
 msgid "(C)"
 msgstr ""
 
-#: src/recover.c:270
-#, c-format
-msgid "can't read bucket #%d: %s"
-msgstr ""
-
-#: src/recover.c:298
-#, c-format
-msgid "can't read key pair %d:%d (%lu:%d): %s"
-msgstr ""
-
-#: src/recover.c:328
-#, c-format
-msgid "ignoring duplicate key %d:%d (%lu:%d)"
-msgstr ""
-
-#: src/recover.c:338
-#, c-format
-msgid "fatal: can't store element %d:%d (%lu:%d): %s"
-msgstr ""
-
 #. TRANSLATORS: Please, don't translate 'y' and 'n'.
-#: src/util.c:100
+#: tools/util.c:100
 msgid "Please, reply 'y' or 'n'"
+msgstr ""
+
+#: tools/var.c:792
+#, c-format
+msgid "unrecognized error code: %s"
 msgstr ""
 
 #~ msgid "Illegal data"
@@ -1335,6 +1424,19 @@ msgstr ""
 
 #~ msgid "couldn't init cache"
 #~ msgstr "キャッシュを初期化できませんでした"
+
+#~ msgid ""
+#~ "******* %s **********\n"
+#~ "\n"
+#~ "bits = %d\n"
+#~ "count= %d\n"
+#~ "Hash Table:\n"
+#~ msgstr ""
+#~ "******* %s **********\n"
+#~ "\n"
+#~ "ビット = %d\n"
+#~ "数 = %d\n"
+#~ "ハッシュ表:\n"
 
 #~ msgid "Out of memory"
 #~ msgstr "メモリが足りません"
@@ -1371,9 +1473,6 @@ msgstr ""
 #~ msgid "  -n                 create database\n"
 #~ msgstr "  -n                 データベースを作成する\n"
 
-#~ msgid "cannot open file `%s' for reading: %s"
-#~ msgstr "ファイル `%s' を読み取り用に開けません: %s"
-
 #~ msgid "%s:%d: line too long"
 #~ msgstr "%s:%d: 行が大きすぎます"
 
@@ -1383,8 +1482,20 @@ msgstr ""
 #~ msgid "%d: item not inserted: %s"
 #~ msgstr "%d: 項目を挿入できませんでした: %s"
 
+#~ msgid "Current bucket"
+#~ msgstr "現在のバケット"
+
+#~ msgid " current bucket address  = %lu.\n"
+#~ msgstr " 現在のバケットアドレス = %lu。\n"
+
 #~ msgid "Not a bucket.\n"
 #~ msgstr "バケットではありません。\n"
+
+#~ msgid "  table size   = %d\n"
+#~ msgstr "  表サイズ     = %d\n"
+
+#~ msgid "  table bits   = %d\n"
+#~ msgstr "  表ビット     = %d\n"
 
 #~ msgid "gdbm_export failed, %s"
 #~ msgstr "gdbm_export に失敗しました。 %s"

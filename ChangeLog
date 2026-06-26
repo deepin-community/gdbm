@@ -1,3 +1,272 @@
+2022-02-04  Sergey Poznyakoff  <gray@gnu.org>
+
+        Version 1.23
+
+
+2022-01-25  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix possible heap buffer overflow
+
+        * src/bucket.c (_gdbm_split_bucket): When splitting the bucket,
+        check if hash values are within allowed range.
+
+2022-01-08  Sergey Poznyakoff  <gray@gnu.org>
+
+        One more fix in wordwrap
+
+
+2022-01-08  Sergey Poznyakoff  <gray@gnu.org>
+
+        Bugfixes in parseopt and wordwrap
+
+        * tools/parseopt.c (print_option): Add newlines around group
+        header text. Insert a comma between the short and corresponding
+        long option.
+        (parseopt_print_help): Don't use parseopt_program_args if it's
+        NULL or empty.
+        * tools/wordwrap.c (wordwrap_set_left_margin): Always force
+        reindent of the following line.
+        (flush_line): Fix the "full write" condition.
+
+2022-01-08  Sergey Poznyakoff  <gray@gnu.org>
+
+        Bugfixes
+
+        * src/bucket.c (_gdbm_cache_init): Accept sizes greater than the 
+        directory size.
+        * src/gdbmsetopt.c (setopt_gdbm_getdbformat): Return 0 on
+        success.
+
+2022-01-07  Sergey Poznyakoff  <gray@gnu.org>
+
+        Minor fix
+
+        * src/bucket.c (lru_unlink_elem): Take into account the
+        possibility that dbf->cache_mru can be NULL.
+
+2022-01-06  Sergey Poznyakoff  <gray@gnu.org>
+
+        Speed up flushing the bucket cache on disk
+
+        The implementation of _gdbm_cache_flush becomes prohibitively 
+        inefficient during extensive updates of large databases.  The 
+        bug was reported at https://github.com/Perl/perl5/issues/19306.
+
+        To fix it, make sure that all changed cache entries are placed
+        at the head of the cache_mru list, forming a contiguous
+        sequence. This way a potentially long iteration over all cache
+        entries can be cut off at the first entry with ca_changed ==
+        FALSE.
+
+        This commit also gets rid of several superfluous fields in 
+        struct gdbm_file_info:
+
+        - cache_entry
+
+            Not needed, because the most recently used cache entry
+           (cache_mru) is always the current one.
+
+        - bucket_changed
+
+            dbf->cache_mru->ca_changed reflects the status of the
+        current
+           bucket.
+
+        - second_changed
+
+            Not needed because _gdbm_cache_flush, which flushes all
+        changed
+           buckets, is now invoked unconditionally by _gdbm_end_update
+        (and
+           also whenever dbf->cache_mru changes).
+
+        * src/gdbmdefs.h (struct gdbm_file_info): Remove cache_entry. 
+        The current cache entry is cache_mru. Remove bucket_changed, and
+        second_changed. All uses changed.
+        * src/proto.h (_gdbm_current_bucket_changed): New inline
+        function.
+        * src/bucket.c (_gdbm_cache_flush): Assume all changed elements
+        form a contiguous sequence beginning with dbf->cache_mru.
+        (set_cache_entry): Remove.  All callers changed.
+        (lru_link_elem,lru_unlink_elem): Update dbf->bucket as
+        necessary.
+        (cache_lookup): If the obtained bucket is not changed and is
+        going to become current, flush all changed cache elements.
+
+        * src/update.c (_gdbm_end_update): Call _gdbm_cache_flush
+        unconditionally.
+        * src/findkey.c: Use dbf->cache_mru instead of the removed
+        dbf->cache_entry.
+        * src/gdbmseq.c: Likewise.
+        * tools/gdbmshell.c (_gdbm_print_bucket_cache): Likewise.
+
+        * src/falloc.c: Use _gdbm_current_bucket_changed to mark the
+        current bucket as changed.
+        * src/gdbmstore.c: Likewise.
+        * src/gdbmdelete.c: Likewise.  Use _gdbm_current_bucket_changed.
+
+        * tests/gtcacheopt.c: Fix typo.
+        * tests/gtload.c: New option: -cachesize
+
+2022-01-02  Sergey Poznyakoff  <gray@gnu.org>
+
+        Update copyright years
+
+
+2021-11-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Rearrange the directory structure
+
+        Sources for the libgdbm library reside in src/. Sources for
+        building accompanying tools are moved to the tools/ 
+        subdirectory.
+
+2021-11-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Update POTFILES.in
+
+
+2021-11-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix typos
+
+
+2021-11-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix shell command in gdbmtool
+
+        Trailing whitespace was erroneously recognized as argument.
+
+        * src/lex.l (string_end): Optionally return NULL if the
+        collected string is of zero length. When leaving the SHELL
+        condition, don't return T_WORD for trailing whitespace.
+        * src/gdbmshell.c (shell_handler): Perror after failed execv.
+
+2021-11-18  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix gdbmtool import command
+
+        * src/gdbmshell.c (import_handler): Fix option addressing (see 
+        https://puszcza.gnu.org.ua/bugs/?535). Fix freeing of the
+        uninitialized variable.
+
+2021-11-17  Sergey Poznyakoff  <gray@gnu.org>
+
+        Word wrapping output functions for gdbm apps
+
+        * src/Makefile.am (libgdbmapp_a_SOURCES): Add wordwrap.c
+        * src/wordwrap.c: New file.
+
+        * tests/Makefile.am: Add t_wordwrap and wordspit.at
+        * tests/testsuite.at: Add new test.
+        * tests/t_wordwrap.c: New file.
+
+        * src/gdbmshell.c (help_handler): Use wordwrap functions.
+        * src/parseopt.c: Rewrite help output using wordwrap. Add
+        support for the ARGP_HELP_FMT environment variable. Make sure no
+        empty strings are ever passed to gettext.
+
+2021-11-16  Sergey Poznyakoff  <gray@gnu.org>
+
+        Minor fix
+
+
+2021-11-16  Sergey Poznyakoff  <gray@gnu.org>
+
+        Fix memory leaks in gdbmshell
+
+        * configure.ac: Don't use $YACC and $LEX (undefined since
+        f4c143fbdf).
+        * src/gdbmshell.c (run_command): Free arglist if not saved to
+        last_args.
+        * src/gdbmtool.c (gdbmtool_init): Correctly report unrecognized
+        long options.
+        * src/gdbmtool.h (YY_LOCATION_PRINT): Define to locus_print.
+        (locus_print): New proto.
+        * src/gram.y: Define destructors for various symbols.
+        * src/lex.l: Save source file names in a linked list.  Don't
+        free source name in input_context_pop, because yypush might
+        refer to it via yyloc stack even after readinf eof (e.g. when
+        printing location). The collected list is freed at program exit.
+        (locus_print): New function.
+        * src/parseopt.c (parseopt_free): New function.
+        (parseopt_first): Call parseopt_free.
+        (parseopt_next): Call parseopt_free, depending on the result.
+        * src/var.c (variable) <freehook>: New member.
+        (errormask_freehook): New function.  Set it as freehook for
+        errorexit and errormask.
+        (variables_free): Call freehook, if defined.
+
+2021-11-16  Sergey Poznyakoff  <gray@gnu.org>
+
+        gdbmtool: bugfixes
+
+
+2021-11-15  Sergey Poznyakoff  <gray@gnu.org>
+
+        gdbmshell: fix exit on error and improve directory/bucket
+        inspection.
+
+        Output from the "dir" command includes, for each directory
+        entry, the corresponding hash prefix.
+
+        The "bucket" command, when used without arguments, assumes
+        current bucket. Its output includes: bucket local depth, number
+        of directory entries pointing to that bucket (references), and,
+        if the latter is greater than one, indexes to the first and last
+        directory entries where it is referenced.
+
+        New command "sibling" inspects the sibling bucket of the current
+        one, i.e. the bucket corresponding to the hash prefix with the
+        last bit inverted.
+
+2021-11-14  Sergey Poznyakoff  <gray@gnu.org>
+
+        Version 1.22.90
+
+
+2021-11-07  Sergey Poznyakoff  <gray@gnu.org>
+
+        Switch to hash table cache implementation
+
+        * src/cachetree.c: Remove.
+        * src/Makefile.am: Remove cachetree.c
+        * doc/gdbm.texi: Document the changes.
+        * src/bucket.c (cache_tab_lookup_slot)
+        (cache_tab_resize): New function.
+        (cache_elem_new): Initialize ca_coll.
+        (cache_elem_free, cache_lookup)
+        (_gdbm_cache_init,_gdbm_cache_free): Rewrite with hash-based
+        cache lookup.
+        (_gdbm_fetch_data): Remove unused function.
+        * src/gdbm.h.in (GDBM_GETDBFORMAT, GDBM_GETDIRDEPTH)
+        (GDBM_GETBUCKETSIZE, GDBM_GETCACHEAUTO, GDBM_SETCACHEAUTO): New
+        option codes.
+        * src/gdbmdefs.h (cache_node): Remove.
+        (cache_elem): Remove ca_node.  Add ca_coll (collision resolution
+        pointer).
+        (gdbm_file_info): New members: cache_auto, cache_bits, cache.
+        * src/gdbmopen.c (gdbm_fd_open): Change cache initialization.
+        * src/gdbmsetopt.c (GDBM_GETDBFORMAT,GDBM_GETDIRDEPTH)
+        (GDBM_GETBUCKETSIZE,GDBM_GETCACHEAUTO)
+        (GDBM_SETCACHEAUTO): Implement new options.
+        (setopt_gdbm_getflags): Reflect the state of GDBM_CLOEXEC and
+        GDBM_NUMSYNC.
+        * src/proto.h (_gdbm_fetch_data,_gdbm_cache_tree_alloc)
+        (_gdbm_cache_tree_destroy,_gdbm_cache_tree_delete)
+        (_gdbm_cache_tree_lookup): Remove protos.
+        * src/recover.c (_gdbm_finish_transfer): Restore original cache
+        settings.
+        * tests/Makefile.am: Add new test.
+        * tests/testsuite.at: Likewise.
+        * tests/gtcacheopt.c: New file.
+        * tests/setopt02.at: New test case.
+
+2021-10-19  Sergey Poznyakoff  <gray@gnu.org>
+
+        Include timestamp in the NEWS entry
+
+
 2021-10-19  Sergey Poznyakoff  <gray@gnu.org>
 
         Version 1.22
@@ -2648,51 +2917,6 @@
 
         Use C99 array initializers in src/gdbmerrno.c
 
-
-2016-07-08  Sergey Poznyakoff  <gray@gnu.org.ua>
-
-        Improve _gdbm_findkey interface.
-
-        * doc/gdbm.texi: Document gdbm_exists in detail.
-        * src/findkey.c (_gdbm_findkey): return parameters can be NULL.
-        * src/gdbmexists.c (gdbm_exists): Remove unnecessary local
-        variables.  Reset gdbm_errno to 0 if the key was not found.
-        * src/gdbmdelete.c (gdbm_delete): Remove unnecessary local
-        variables.
-        * src/gdbmfetch.c: Likewise.
-        * src/gdbmseq.c: Likewise.
-        * src/gdbmstore.c: Likewise.
-
-2016-07-08  Sergey Poznyakoff  <gray@gnu.org.ua>
-
-        Fix error handling in gdbm_fetch, gdbm_firstkey, and
-        gdbm_nextkey.
-
-        * src/gdbmfetch.c: Hanlde out of memory error.
-        * src/findkey.c: Set gdbm_errno to GDBM_ITEM_NOT_FOUND if
-        nothing was found.
-        * src/gdbmdelete.c: Don't set gdbm_errno after
-        _gdbm_findkey returns -1.  It's been done already.
-        * src/gdbmexp.c (gdbm_export_to_file): Return -1 if gdbm_fetch
-        fails.
-        * src/gdbmseq.c (get_next_key): Set gdbm_errno to 
-        GDBM_ITEM_NOT_FOUND if there's no next key. Don't call
-        _gdbm_fatal on out of memory condition.
-        (gdbm_nextkey): Set gdbm_errno to GDBM_ITEM_NOT_FOUND if there's
-        no next key.
-        * src/gdbmtool.c (fetch_handler)
-        (firstkey_handler,nextkey_handler): Check gdbm_errno.
-        * src/gdbmstore.c: Handle error return from _gdbm_findkey.
-        * tests/gtdump.c: Likewise.
-        * tests/gtfetch.c: Likewise.
-
-        * doc/gdbm.texi: Document changes.
-        * doc/gdbm.3: Likewise.
-
-        * configure.ac: Version 1.12.90
-        * NEWS: Update.
-
-        * .gitignore: Update.
 
 2016-07-07  Sergey Poznyakoff  <gray@gnu.org.ua>
 

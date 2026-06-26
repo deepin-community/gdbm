@@ -1,6 +1,6 @@
 %{
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 1990-2021 Free Software Foundation, Inc.
+   Copyright (C) 1990-2022 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -61,6 +61,15 @@ struct dsegm *dsdef[DS_MAX];
   struct { struct dsegm *head, *tail; } dsegmlist;
   struct command *cmd;
 }
+
+%destructor { gdbmarglist_free (&$$); } <arglist>
+%destructor { gdbmarg_free ($$); } <arg>
+%destructor { kvlist_free ($$.head); } <kvlist>
+%destructor { kvlist_free ($$); } <kvpair>
+%destructor { slist_free ($$.head); } <slist>
+%destructor { free ($$); } <string>
+%destructor { dsegm_list_free ($$); } <dsegm>
+%destructor { dsegm_list_free ($$.head); } <dsegmlist>
 
 %%
 

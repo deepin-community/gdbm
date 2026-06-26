@@ -1,7 +1,7 @@
 /* falloc.c - The file space management routines for dbm. */
 
 /* This file is part of GDBM, the GNU data base manager.
-   Copyright (C) 1990-2021 Free Software Foundation, Inc.
+   Copyright (C) 1990-2022 Free Software Foundation, Inc.
 
    GDBM is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -108,7 +108,7 @@ _gdbm_alloc (GDBM_FILE dbf, int num_bytes)
 }
 
 /* Free space of size NUM_BYTES in the file DBF at file address FILE_ADR.  Make
-   it avaliable for reuse through _gdbm_alloc.  This routine changes the
+   it available for reuse through _gdbm_alloc.  This routine changes the
    avail structure. */
 
 int
@@ -515,7 +515,7 @@ adjust_bucket_avail (GDBM_FILE dbf)
 	  av_el = dbf->avail->av_table[dbf->avail->count];
 	  _gdbm_put_av_elem (av_el, dbf->bucket->bucket_avail,
 			     &dbf->bucket->av_count, dbf->coalesce_blocks);
-	  dbf->bucket_changed = TRUE;
+	  _gdbm_current_bucket_changed (dbf);
 	}
       return 0;
     }
@@ -533,7 +533,7 @@ adjust_bucket_avail (GDBM_FILE dbf)
       _gdbm_put_av_elem (av_el, dbf->avail->av_table,
 			 &dbf->avail->count,
 			 dbf->coalesce_blocks);
-      dbf->bucket_changed = TRUE;
+      _gdbm_current_bucket_changed (dbf);
     }
   return 0;
 }

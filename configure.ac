@@ -1,5 +1,5 @@
 # This file is part of GDBM.                                   -*- autoconf -*-
-# Copyright (C) 2007-2021 Free Software Foundation, Inc.
+# Copyright (C) 2007-2022 Free Software Foundation, Inc.
 #
 # GDBM is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 # along with GDBM. If not, see <http://www.gnu.org/licenses/>. */
 
 m4_define([_GDBM_VERSION_MAJOR], 1)
-m4_define([_GDBM_VERSION_MINOR], 22)
+m4_define([_GDBM_VERSION_MINOR], 23)
 
 AC_INIT([gdbm],
         _GDBM_VERSION_MAJOR._GDBM_VERSION_MINOR[]m4_ifdef([_GDBM_VERSION_PATCH],._GDBM_VERSION_PATCH),
@@ -227,12 +227,6 @@ AM_CONDITIONAL([GDBM_COND_DEBUG_ENABLE], [test "$status_debug" = "yes"])
 AC_SUBST(YFLAGS_DEBUG)
 AC_SUBST(LFLAGS_DEBUG)
 if test "$want_gdbmtool_debug" = yes; then
-    if ! $LEX --version 2>/dev/null | grep -q flex; then
-       AC_MSG_ERROR([--enable-gdbmtool-debug requires flex, which is not available])
-    fi
-    if ! $YACC --version 2>/dev/null | grep -q bison; then
-       AC_MSG_ERROR([--enable-gdbmtool-debug requires bison, which is not available])
-    fi
     YFLAGS_DEBUG=-t
     LFLAGS_DEBUG=-d
 fi    
@@ -280,6 +274,7 @@ status_ficlone=$status_ficlone])
 AC_CONFIG_FILES([Makefile
                  src/Makefile
 		 src/gdbm.h
+		 tools/Makefile
 		 doc/Makefile
 		 compat/Makefile])
 
