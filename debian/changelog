@@ -1,3 +1,9 @@
+gdbm (1.23-4) unstable; urgency=medium
+
+  * Rebuild with LTO enabled (dpkg vendor feature optimize/lto).
+
+ -- tunaichao <tunaichao@uniontech.com>  Fri, 11 Sep 2026 14:55:39 +0800
+
 gdbm (1.23-3) unstable; urgency=medium
 
   * libgdbm-compat-dev: Add dependency libgdbm-dev (Closes: #1021123)
